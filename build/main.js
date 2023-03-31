@@ -138,7 +138,6 @@
     apiKey,
     threshold
   }) {
-    const isFigJam = figma.editorType === "figjam";
     function isTextualNode(node) {
       return isFigJam ? node.type === "STICKY" : node.type === "TEXT";
     }
@@ -247,36 +246,52 @@
     texts,
     maxLength
   }) {
-    const text = texts.join("\n");
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const text = texts.join(", ");
+    const response = await fetch("https://api.openai.com/v1/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: [
-          {
-            role: "user",
-            content: `We are doing a design thinking affinity mapping exercise where a group has contributed sticky notes containing many ideas for how to improve a digital product and we want to cluster the sticky notes under matching clusters. As input I'll provide a list of text representing the sticky notes. Output a label that accurately and concisely describes the cluster in 3 words or less. Don't add unnecessary words like "category":
+        model: "text-davinci-003",
+        prompt: `Your task is to create a concise and descriptive label for a cluster of similar sticky notes. Please follow these guidelines for an effective label:
 
-Input: ${text}
 
-Output:`
-          }
-        ],
-        max_tokens: maxLength,
-        top_p: 0.9,
-        frequency_penalty: 0,
-        presence_penalty: 1,
-        stop: "\n"
+The sticky notes have been organized through affinity mapping, which groups information based on natural relationships.
+
+Your label should summarize the core idea of the clustered sticky notes in 3 words or fewer.
+
+Avoid using unhelpful words like "category" or "cluster," numbers, quotation marks, periods, or any extraneous punctuation in your output.
+
+
+
+Here are some examples of effective labels:
+
+If the sticky notes focus on improving user interfaces, an effective label could be "UI Enhancements"
+
+If the sticky notes discuss various usability testing methods, a suitable label might be "Usability Testing"
+
+If the sticky notes are related to design principles, an appropriate label could be "Design Principles"
+
+If the sticky notes address accessibility requirements, a good label could be "Accessibility Standards"
+
+If the sticky notes cover strategies for effective user onboarding, a fitting label might be "User Onboarding"
+
+If the sticky notes explore ways to optimize app performance, an apt label could be "Performance Optimization"
+
+
+
+Sticky notes: ${text}
+
+Generate Label:`,
+        max_tokens: maxLength
       })
     });
     const data = await response.json();
     console.log({ data });
-    if (data.choices && data.choices.length > 0 && data.choices[0].message.content) {
-      return data.choices[0].message.content.trim();
+    if (data.choices && data.choices.length > 0 && data.choices[0].text) {
+      return data.choices[0].text.trim();
     } else {
       return "Unknown";
     }
@@ -313,6 +328,7 @@ Output:`
     distanceMatrix,
     threshold = 0.155
   }) {
+    console.log(threshold);
     const clusters = hierarchicalClustering(distanceMatrix, threshold);
     const clusteredLayers = clusters.map(
       (cluster) => cluster.map((index) => textLayers[index])
@@ -323,14 +339,14 @@ Output:`
   function rearrangeLayersOnCanvas(clusteredLayersData) {
     const framePadding = 12;
     const textualNodeSpacing = 40;
-    const horizontalSpacing = 40;
+    const containerSpacing = 40;
     const { clusterLabels, clusteredLayers } = clusteredLayersData;
-    let currentXPosition = horizontalSpacing;
-    const isFigJam = figma.editorType === "figjam";
+    let currentXPosition = containerSpacing;
+    const isFigJam2 = figma.editorType === "figjam";
     for (let i = 0; i < clusteredLayers.length; i++) {
       const cluster = clusteredLayers[i];
       let container;
-      if (isFigJam) {
+      if (isFigJam2) {
         container = figma.createSection();
         container.name = clusterLabels[i];
       } else {
@@ -348,7 +364,7 @@ Output:`
         container.layoutGrow = 1;
       }
       container.x = currentXPosition;
-      container.y = horizontalSpacing;
+      container.y = containerSpacing;
       let currentYPosition = textualNodeSpacing;
       let maxHeight = 0;
       let width = 0;
@@ -365,16 +381,16 @@ Output:`
       const containerHeight = currentYPosition;
       container.resizeWithoutConstraints(containerWidth, containerHeight);
       figma.currentPage.appendChild(container);
-      currentXPosition += containerWidth + horizontalSpacing;
+      currentXPosition += containerWidth + containerSpacing;
     }
-    if (!isFigJam) {
+    if (!isFigJam2) {
       let isFrameOrComponent2 = function(node) {
         return node.type === "FRAME" || node.type === "COMPONENT";
       };
       var isFrameOrComponent = isFrameOrComponent2;
       for (const node of figma.currentPage.children) {
         if (isFrameOrComponent2(node) && node.layoutMode !== "NONE") {
-          node.y = horizontalSpacing;
+          node.y = containerSpacing;
           node.layoutMode = "VERTICAL";
           node.primaryAxisAlignItems = "MIN";
           node.counterAxisAlignItems = "MIN";
@@ -385,31 +401,40 @@ Output:`
           node.paddingLeft = framePadding;
           node.paddingRight = framePadding;
         } else if (node.type === "SECTION") {
-          node.y = horizontalSpacing;
+          node.y = containerSpacing;
         }
       }
     }
   }
+  var isFigJam;
   var init_clusterTextualNodes = __esm({
     "src/clusterTextualNodes.ts"() {
       "use strict";
+      isFigJam = figma.editorType === "figjam";
     }
   });
 
   // src/main.ts
   var main_exports = {};
   __export(main_exports, {
-    default: () => main_default
+    default: () => main_default,
+    defaultSettings: () => defaultSettings
   });
   function main_default() {
-    once("SAVE_API_KEY", async function(apiKey) {
+    on("SAVE_API_KEY", async function(apiKey) {
       try {
         await saveSettingsAsync({ apiKey }, SETTINGS_KEY);
       } catch (error) {
         emit("HANDLE_ERROR", error.message);
       }
     });
-    once("CLUSTER_TEXTUAL_NODES", async function() {
+    once("SET_UI_LOADED", async function() {
+      emit("SET_IS_FIGJAM", figma.editorType === "figjam");
+      const settings = await loadSettingsAsync(defaultSettings, SETTINGS_KEY);
+      console.log("loaded settings", settings);
+      emit("GET_SETTINGS", settings);
+    });
+    on("CLUSTER_TEXTUAL_NODES", async function() {
       try {
         emit("SET_LOADING", true);
         const { apiKey, threshold } = await loadSettingsAsync(
@@ -438,7 +463,8 @@ Output:`
       SETTINGS_KEY = "autocluster-settings";
       defaultSettings = {
         apiKey: "",
-        threshold: 0.155
+        // threshold: 0.155,
+        threshold: 0.16
       };
     }
   });

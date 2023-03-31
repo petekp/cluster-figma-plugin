@@ -1,5 +1,7 @@
 type TextualNode = TextNode | StickyNode;
 
+const isFigJam = figma.editorType === "figjam";
+
 export async function clusterTextualNodes({
   apiKey,
   threshold,
@@ -7,8 +9,6 @@ export async function clusterTextualNodes({
   apiKey: string;
   threshold: number;
 }) {
-  const isFigJam = figma.editorType === "figjam";
-
   function isTextualNode(node: SceneNode): node is TextualNode {
     return isFigJam ? node.type === "STICKY" : node.type === "TEXT";
   }
@@ -166,38 +166,39 @@ async function generateSummary({
   texts: string[];
   maxLength: number;
 }): Promise<string> {
-  const text = texts.join("\n");
+  const text = texts.join(", ");
 
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+  const response = await fetch("https://api.openai.com/v1/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "user",
-          content: `We are doing a design thinking affinity mapping exercise where a group has contributed sticky notes containing many ideas for how to improve a digital product and we want to cluster the sticky notes under matching clusters. As input I'll provide a list of text representing the sticky notes. Output a label that accurately and concisely describes the cluster in 3 words or less. Don't add unnecessary words like "category":\n\nInput: ${text}\n\nOutput:`,
-        },
-      ],
+      model: "text-davinci-003",
+      prompt: `Your task is to create a concise and descriptive label for a cluster of similar sticky notes. Please follow these guidelines for an effective label:\n
+
+The sticky notes have been organized through affinity mapping, which groups information based on natural relationships.\n
+Your label should summarize the core idea of the clustered sticky notes in 3 words or fewer.\n
+Avoid using unhelpful words like "category" or "cluster," numbers, quotation marks, periods, or any extraneous punctuation in your output.\n
+\n
+Here are some examples of effective labels:\n
+If the sticky notes focus on improving user interfaces, an effective label could be "UI Enhancements"\n
+If the sticky notes discuss various usability testing methods, a suitable label might be "Usability Testing"\n
+If the sticky notes are related to design principles, an appropriate label could be "Design Principles"\n
+If the sticky notes address accessibility requirements, a good label could be "Accessibility Standards"\n
+If the sticky notes cover strategies for effective user onboarding, a fitting label might be "User Onboarding"\n
+If the sticky notes explore ways to optimize app performance, an apt label could be "Performance Optimization"\n
+\n
+Sticky notes: ${text}\n\nGenerate Label:`,
       max_tokens: maxLength,
-      top_p: 0.9,
-      frequency_penalty: 0,
-      presence_penalty: 1,
-      stop: "\n",
     }),
   });
 
   const data = await response.json();
   console.log({ data });
-  if (
-    data.choices &&
-    data.choices.length > 0 &&
-    data.choices[0].message.content
-  ) {
-    return data.choices[0].message.content.trim();
+  if (data.choices && data.choices.length > 0 && data.choices[0].text) {
+    return data.choices[0].text.trim();
   } else {
     return "Unknown";
   }
@@ -247,6 +248,7 @@ function clusterLayers({
   distanceMatrix: number[][];
   threshold: number;
 }): { clusterLabels: string[]; clusteredLayers: TextualNode[][] } {
+  console.log(threshold);
   const clusters = hierarchicalClustering(distanceMatrix, threshold);
 
   const clusteredLayers = clusters.map((cluster) =>

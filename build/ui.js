@@ -210,14 +210,14 @@
     return this.l[n2.type + true](l.event ? l.event(n2) : n2);
   }
   function L(n2, u3, i3, t3, r3, o3, f3, e3, c3) {
-    var s3, a3, v3, y2, p2, d2, b3, g3, m3, w3, A2, P2, C2, $2, H2, I2 = u3.type;
+    var s3, a3, v3, y2, p3, d2, b3, g3, m3, w3, A2, P2, C2, $2, H2, I2 = u3.type;
     if (void 0 !== u3.constructor)
       return null;
     null != i3.__h && (c3 = i3.__h, e3 = u3.__e = i3.__e, u3.__h = null, o3 = [e3]), (s3 = l.__b) && s3(u3);
     try {
       n:
         if ("function" == typeof I2) {
-          if (g3 = u3.props, m3 = (s3 = I2.contextType) && t3[s3.__c], w3 = s3 ? m3 ? m3.props.value : s3.__ : t3, i3.__c ? b3 = (a3 = u3.__c = i3.__c).__ = a3.__E : ("prototype" in I2 && I2.prototype.render ? u3.__c = a3 = new I2(g3, w3) : (u3.__c = a3 = new k(g3, w3), a3.constructor = I2, a3.render = q), m3 && m3.sub(a3), a3.props = g3, a3.state || (a3.state = {}), a3.context = w3, a3.__n = t3, v3 = a3.__d = true, a3.__h = [], a3._sb = []), null == a3.__s && (a3.__s = a3.state), null != I2.getDerivedStateFromProps && (a3.__s == a3.state && (a3.__s = h({}, a3.__s)), h(a3.__s, I2.getDerivedStateFromProps(g3, a3.__s))), y2 = a3.props, p2 = a3.state, a3.__v = u3, v3)
+          if (g3 = u3.props, m3 = (s3 = I2.contextType) && t3[s3.__c], w3 = s3 ? m3 ? m3.props.value : s3.__ : t3, i3.__c ? b3 = (a3 = u3.__c = i3.__c).__ = a3.__E : ("prototype" in I2 && I2.prototype.render ? u3.__c = a3 = new I2(g3, w3) : (u3.__c = a3 = new k(g3, w3), a3.constructor = I2, a3.render = q), m3 && m3.sub(a3), a3.props = g3, a3.state || (a3.state = {}), a3.context = w3, a3.__n = t3, v3 = a3.__d = true, a3.__h = [], a3._sb = []), null == a3.__s && (a3.__s = a3.state), null != I2.getDerivedStateFromProps && (a3.__s == a3.state && (a3.__s = h({}, a3.__s)), h(a3.__s, I2.getDerivedStateFromProps(g3, a3.__s))), y2 = a3.props, p3 = a3.state, a3.__v = u3, v3)
             null == I2.getDerivedStateFromProps && null != a3.componentWillMount && a3.componentWillMount(), null != a3.componentDidMount && a3.__h.push(a3.componentDidMount);
           else {
             if (null == I2.getDerivedStateFromProps && g3 !== y2 && null != a3.componentWillReceiveProps && a3.componentWillReceiveProps(g3, w3), !a3.__e && null != a3.shouldComponentUpdate && false === a3.shouldComponentUpdate(g3, a3.__s, w3) || u3.__v === i3.__v) {
@@ -229,7 +229,7 @@
               break n;
             }
             null != a3.componentWillUpdate && a3.componentWillUpdate(g3, a3.__s, w3), null != a3.componentDidUpdate && a3.__h.push(function() {
-              a3.componentDidUpdate(y2, p2, d2);
+              a3.componentDidUpdate(y2, p3, d2);
             });
           }
           if (a3.context = w3, a3.props = g3, a3.__P = n2, P2 = l.__r, C2 = 0, "prototype" in I2 && I2.prototype.render) {
@@ -240,7 +240,7 @@
             do {
               a3.__d = false, P2 && P2(u3), s3 = a3.render(a3.props, a3.state, a3.context), a3.state = a3.__s;
             } while (a3.__d && ++C2 < 25);
-          a3.state = a3.__s, null != a3.getChildContext && (t3 = h(h({}, t3), a3.getChildContext())), v3 || null == a3.getSnapshotBeforeUpdate || (d2 = a3.getSnapshotBeforeUpdate(y2, p2)), H2 = null != s3 && s3.type === _ && null == s3.key ? s3.props.children : s3, x(n2, Array.isArray(H2) ? H2 : [H2], u3, i3, t3, r3, o3, f3, e3, c3), a3.base = u3.__e, u3.__h = null, a3.__h.length && f3.push(a3), b3 && (a3.__E = a3.__ = null), a3.__e = false;
+          a3.state = a3.__s, null != a3.getChildContext && (t3 = h(h({}, t3), a3.getChildContext())), v3 || null == a3.getSnapshotBeforeUpdate || (d2 = a3.getSnapshotBeforeUpdate(y2, p3)), H2 = null != s3 && s3.type === _ && null == s3.key ? s3.props.children : s3, x(n2, Array.isArray(H2) ? H2 : [H2], u3, i3, t3, r3, o3, f3, e3, c3), a3.base = u3.__e, u3.__h = null, a3.__h.length && f3.push(a3), b3 && (a3.__E = a3.__ = null), a3.__e = false;
         } else
           null == o3 && u3.__v === i3.__v ? (u3.__k = i3.__k, u3.__e = i3.__e) : u3.__e = N(i3.__e, u3, i3, t3, r3, o3, f3, c3);
       (s3 = l.diffed) && s3(u3);
@@ -260,7 +260,7 @@
     });
   }
   function N(l3, u3, i3, t3, r3, o3, f3, e3) {
-    var s3, a3, h3, y2 = i3.props, p2 = u3.props, d2 = u3.type, _3 = 0;
+    var s3, a3, h3, y2 = i3.props, p3 = u3.props, d2 = u3.type, _3 = 0;
     if ("svg" === d2 && (r3 = true), null != o3) {
       for (; _3 < o3.length; _3++)
         if ((s3 = o3[_3]) && "setAttribute" in s3 == !!d2 && (d2 ? s3.localName === d2 : 3 === s3.nodeType)) {
@@ -270,24 +270,24 @@
     }
     if (null == l3) {
       if (null === d2)
-        return document.createTextNode(p2);
-      l3 = r3 ? document.createElementNS("http://www.w3.org/2000/svg", d2) : document.createElement(d2, p2.is && p2), o3 = null, e3 = false;
+        return document.createTextNode(p3);
+      l3 = r3 ? document.createElementNS("http://www.w3.org/2000/svg", d2) : document.createElement(d2, p3.is && p3), o3 = null, e3 = false;
     }
     if (null === d2)
-      y2 === p2 || e3 && l3.data === p2 || (l3.data = p2);
+      y2 === p3 || e3 && l3.data === p3 || (l3.data = p3);
     else {
-      if (o3 = o3 && n.call(l3.childNodes), a3 = (y2 = i3.props || c).dangerouslySetInnerHTML, h3 = p2.dangerouslySetInnerHTML, !e3) {
+      if (o3 = o3 && n.call(l3.childNodes), a3 = (y2 = i3.props || c).dangerouslySetInnerHTML, h3 = p3.dangerouslySetInnerHTML, !e3) {
         if (null != o3)
           for (y2 = {}, _3 = 0; _3 < l3.attributes.length; _3++)
             y2[l3.attributes[_3].name] = l3.attributes[_3].value;
         (h3 || a3) && (h3 && (a3 && h3.__html == a3.__html || h3.__html === l3.innerHTML) || (l3.innerHTML = h3 && h3.__html || ""));
       }
-      if (H(l3, p2, y2, r3, e3), h3)
+      if (H(l3, p3, y2, r3, e3), h3)
         u3.__k = [];
       else if (_3 = u3.props.children, x(l3, Array.isArray(_3) ? _3 : [_3], u3, i3, t3, r3 && "foreignObject" !== d2, o3, f3, o3 ? o3[0] : i3.__k && b(i3, 0), e3), null != o3)
         for (_3 = o3.length; _3--; )
           null != o3[_3] && v(o3[_3]);
-      e3 || ("value" in p2 && void 0 !== (_3 = p2.value) && (_3 !== l3.value || "progress" === d2 && !_3 || "option" === d2 && _3 !== y2.value) && T(l3, "value", _3, y2.value, false), "checked" in p2 && void 0 !== (_3 = p2.checked) && _3 !== l3.checked && T(l3, "checked", _3, y2.checked, false));
+      e3 || ("value" in p3 && void 0 !== (_3 = p3.value) && (_3 !== l3.value || "progress" === d2 && !_3 || "option" === d2 && _3 !== y2.value) && T(l3, "value", _3, y2.value, false), "checked" in p3 && void 0 !== (_3 = p3.checked) && _3 !== l3.checked && T(l3, "checked", _3, y2.checked, false));
     }
     return l3;
   }
@@ -361,10 +361,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/541b09b6-29af-40ab-a6d6-5c2b88a60ea9/banner.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/f2656b6b-04ba-4660-993e-9d4725be7fd5/banner.module.js
   var banner_module_default;
   var init_banner_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/541b09b6-29af-40ab-a6d6-5c2b88a60ea9/banner.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/f2656b6b-04ba-4660-993e-9d4725be7fd5/banner.module.js"() {
       if (document.getElementById("67d23b5a27") === null) {
         const element = document.createElement("style");
         element.id = "67d23b5a27";
@@ -475,6 +475,10 @@
     }
     return o3.__N || o3.__;
   }
+  function p2(u3, i3) {
+    var o3 = d(t2++, 3);
+    !l.__s && z2(o3.__H, i3) && (o3.__ = u3, o3.i = i3, r2.__H.__h.push(o3));
+  }
   function _2(n2) {
     return o2 = 5, F(function() {
       return { current: n2 };
@@ -573,10 +577,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/4ad5d446-1b52-4ecf-81e5-66f6d37122e8/loading-indicator.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/4e65b577-9955-44f8-8f03-e2f884997b53/loading-indicator.module.js
   var loading_indicator_module_default;
   var init_loading_indicator_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/4ad5d446-1b52-4ecf-81e5-66f6d37122e8/loading-indicator.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/4e65b577-9955-44f8-8f03-e2f884997b53/loading-indicator.module.js"() {
       if (document.getElementById("19e2187058") === null) {
         const element = document.createElement("style");
         element.id = "19e2187058";
@@ -627,10 +631,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/8700b3eb-7c33-485b-b8e6-c77ee1fa32cb/button.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/a8755f51-dda2-4518-9c67-daa800fb2edc/button.module.js
   var button_module_default;
   var init_button_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/8700b3eb-7c33-485b-b8e6-c77ee1fa32cb/button.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/a8755f51-dda2-4518-9c67-daa800fb2edc/button.module.js"() {
       if (document.getElementById("8c3348864f") === null) {
         const element = document.createElement("style");
         element.id = "8c3348864f";
@@ -800,10 +804,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/b6d07aca-58b6-49a1-836d-b76fd3125e0c/icon.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/e9d49e10-aa5d-4d35-a81b-8b115284b361/icon.module.js
   var icon_module_default;
   var init_icon_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/b6d07aca-58b6-49a1-836d-b76fd3125e0c/icon.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/e9d49e10-aa5d-4d35-a81b-8b115284b361/icon.module.js"() {
       if (document.getElementById("93bcadccf6") === null) {
         const element = document.createElement("style");
         element.id = "93bcadccf6";
@@ -847,10 +851,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/8b7f9e56-8451-4592-b469-9246f3b33405/text.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/c9caf801-f7e4-44bb-99e2-6625b8c85771/text.module.js
   var text_module_default;
   var init_text_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/8b7f9e56-8451-4592-b469-9246f3b33405/text.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/c9caf801-f7e4-44bb-99e2-6625b8c85771/text.module.js"() {
       if (document.getElementById("ba2e22e436") === null) {
         const element = document.createElement("style");
         element.id = "ba2e22e436";
@@ -1078,10 +1082,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/dbbe0a26-4409-411c-b152-4c3f66acb0d8/textbox.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/93311060-4f34-405d-bbcd-e3cda5fdd00b/textbox.module.js
   var textbox_module_default;
   var init_textbox_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/dbbe0a26-4409-411c-b152-4c3f66acb0d8/textbox.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/93311060-4f34-405d-bbcd-e3cda5fdd00b/textbox.module.js"() {
       if (document.getElementById("f0d299d9a8") === null) {
         const element = document.createElement("style");
         element.id = "f0d299d9a8";
@@ -1205,40 +1209,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/3e9dfeaa-3374-4e43-bb31-01ba2fb4ba8a/muted.module.js
-  var muted_module_default;
-  var init_muted_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/3e9dfeaa-3374-4e43-bb31-01ba2fb4ba8a/muted.module.js"() {
-      if (document.getElementById("0ba069dde5") === null) {
-        const element = document.createElement("style");
-        element.id = "0ba069dde5";
-        element.textContent = `._muted_139yx_1 {
-  color: var(--figma-color-text-secondary);
-}
-
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm5vZGVfbW9kdWxlcy9AY3JlYXRlLWZpZ21hLXBsdWdpbi91aS9saWIvaW5saW5lLXRleHQvbXV0ZWQvbXV0ZWQubW9kdWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLHdDQUF3QztBQUMxQyIsImZpbGUiOiJub2RlX21vZHVsZXMvQGNyZWF0ZS1maWdtYS1wbHVnaW4vdWkvbGliL2lubGluZS10ZXh0L211dGVkL211dGVkLm1vZHVsZS5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubXV0ZWQge1xuICBjb2xvcjogdmFyKC0tZmlnbWEtY29sb3ItdGV4dC1zZWNvbmRhcnkpO1xufVxuIl19 */`;
-        document.head.append(element);
-      }
-      muted_module_default = { "muted": "_muted_139yx_1" };
-    }
-  });
-
-  // node_modules/@create-figma-plugin/ui/lib/inline-text/muted/muted.js
-  function Muted(_a) {
-    var _b = _a, { children } = _b, rest = __objRest(_b, ["children"]);
-    return y("span", __spreadProps(__spreadValues({}, rest), { class: muted_module_default.muted }), children);
-  }
-  var init_muted = __esm({
-    "node_modules/@create-figma-plugin/ui/lib/inline-text/muted/muted.js"() {
-      init_preact_module();
-      init_muted_module();
-    }
-  });
-
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/a1a8fb29-6459-4a72-857d-1883bb825d67/columns.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/6a1220aa-47b7-4fee-a0ce-dd65d0532a82/columns.module.js
   var columns_module_default;
   var init_columns_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/a1a8fb29-6459-4a72-857d-1883bb825d67/columns.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/6a1220aa-47b7-4fee-a0ce-dd65d0532a82/columns.module.js"() {
       if (document.getElementById("4c4ffb31b3") === null) {
         const element = document.createElement("style");
         element.id = "4c4ffb31b3";
@@ -1305,10 +1279,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/007119ac-597e-4a58-9d41-3db335913ef1/container.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/311aecc2-6d01-4130-88c9-641aa188eb66/container.module.js
   var container_module_default;
   var init_container_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/007119ac-597e-4a58-9d41-3db335913ef1/container.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/311aecc2-6d01-4130-88c9-641aa188eb66/container.module.js"() {
       if (document.getElementById("bff84682c1") === null) {
         const element = document.createElement("style");
         element.id = "bff84682c1";
@@ -1347,10 +1321,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/f2e03809-c3fe-477c-ba34-30074d8d2608/vertical-space.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/b061ba54-2a80-473c-9d53-f10a76a4e5a5/vertical-space.module.js
   var vertical_space_module_default;
   var init_vertical_space_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/f2e03809-c3fe-477c-ba34-30074d8d2608/vertical-space.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/b061ba54-2a80-473c-9d53-f10a76a4e5a5/vertical-space.module.js"() {
       if (document.getElementById("493f54b7db") === null) {
         const element = document.createElement("style");
         element.id = "493f54b7db";
@@ -1389,9 +1363,9 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/ccbea280-783b-424a-a736-340ade58de27/base.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/2558e4e9-b238-4f3a-9da3-a89a8c094f40/base.js
   var init_base = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/ccbea280-783b-424a-a736-340ade58de27/base.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/2558e4e9-b238-4f3a-9da3-a89a8c094f40/base.js"() {
       if (document.getElementById("a2c792d3d5") === null) {
         const element = document.createElement("style");
         element.id = "a2c792d3d5";
@@ -1527,7 +1501,6 @@ svg {
       init_text();
       init_textbox();
       init_icon_warning_32();
-      init_muted();
       init_columns();
       init_container();
       init_vertical_space();
@@ -1541,11 +1514,20 @@ svg {
     default: () => ui_default
   });
   function Plugin() {
-    const [apiKey, setApiKey] = h2("");
+    const [settings, setSettings] = h2({
+      apiKey: "",
+      threshold: 0.5
+    });
     const [error, setError] = h2("");
     const [isLoading, setIsLoading] = h2(false);
+    const [isFigJam, setIsFigJam] = h2(true);
+    const { apiKey, threshold } = settings;
+    p2(() => {
+      emit("SET_UI_LOADED");
+    }, []);
     const handleClusterButtonClick = T2(
       function() {
+        console.log("CLUSTER_TEXTUAL_NODES");
         if (apiKey === "") {
           setError("API Key is required");
           return;
@@ -1553,7 +1535,7 @@ svg {
         setError("");
         emit("CLUSTER_TEXTUAL_NODES");
       },
-      [apiKey]
+      [apiKey, threshold, error]
     );
     const handleSaveApiKey = T2(
       function() {
@@ -1561,25 +1543,36 @@ svg {
       },
       [apiKey]
     );
-    once("HANDLE_ERROR", setError);
-    once("SET_LOADING", setIsLoading);
-    return /* @__PURE__ */ y(Container, { space: "medium" }, /* @__PURE__ */ y(VerticalSpace, { space: "large" }), /* @__PURE__ */ y(Text, null, /* @__PURE__ */ y(Muted, null, "OpenAI API Key")), /* @__PURE__ */ y(VerticalSpace, { space: "small" }), /* @__PURE__ */ y(Columns, { space: "extraSmall" }, /* @__PURE__ */ y(
+    once("SET_IS_FIGJAM", setIsFigJam);
+    once("GET_SETTINGS", setSettings);
+    on("HANDLE_ERROR", setError);
+    on("SET_LOADING", setIsLoading);
+    return /* @__PURE__ */ y(Container, { space: "medium" }, /* @__PURE__ */ y(VerticalSpace, { space: "large" }), /* @__PURE__ */ y(Text, null, "OpenAI API Key"), /* @__PURE__ */ y(VerticalSpace, { space: "small" }), /* @__PURE__ */ y(Columns, { space: "extraSmall" }, /* @__PURE__ */ y(
       Textbox,
       {
-        onValueInput: setApiKey,
+        onValueInput: (val) => {
+          setSettings(__spreadProps(__spreadValues({}, settings), { apiKey: val.trim() }));
+          emit("SAVE_API_KEY", val.trim());
+          setError("");
+        },
         value: apiKey,
         password: true,
         variant: "border"
       }
-    ), /* @__PURE__ */ y(Button, { fullWidth: true, onClick: handleSaveApiKey, secondary: true }, "Save")), error && /* @__PURE__ */ y(Banner, { icon: /* @__PURE__ */ y(IconWarning32, null), variant: "warning" }, error), /* @__PURE__ */ y(VerticalSpace, { space: "extraLarge" }), /* @__PURE__ */ y(Columns, { space: "extraSmall" }, /* @__PURE__ */ y(
-      Button,
+    )), error && /* @__PURE__ */ y(VerticalSpace, { space: "small" }), error && /* @__PURE__ */ y(
+      Banner,
       {
-        loading: isLoading,
-        fullWidth: true,
-        onClick: handleClusterButtonClick
+        style: {
+          wordBreak: "break-all",
+          maxWidth: "100%",
+          overflow: "hidden",
+          userSelect: "auto"
+        },
+        icon: /* @__PURE__ */ y(IconWarning32, null),
+        variant: "warning"
       },
-      "Cluster"
-    )), /* @__PURE__ */ y(VerticalSpace, { space: "small" }));
+      error
+    ), /* @__PURE__ */ y(VerticalSpace, { space: "extraSmall" }), /* @__PURE__ */ y(Button, { loading: isLoading, fullWidth: true, onClick: handleClusterButtonClick }, "Cluster ", isFigJam ? "sticky notes" : "text layers"), /* @__PURE__ */ y(VerticalSpace, { space: "small" }));
   }
   var ui_default;
   var init_ui = __esm({

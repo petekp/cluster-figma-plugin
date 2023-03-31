@@ -1,5 +1,20 @@
 import { EventHandler } from "@create-figma-plugin/utilities";
 
+export type Settings = {
+  apiKey: string;
+  threshold: number;
+};
+
+export interface SetIsFigJam extends EventHandler {
+  name: "SET_IS_FIGJAM";
+  handler: (isFigJam: boolean) => void;
+}
+
+export interface GetSettings extends EventHandler {
+  name: "GET_SETTINGS";
+  handler: (settings: Settings) => void;
+}
+
 export interface ClusterTextualNodes extends EventHandler {
   name: "CLUSTER_TEXTUAL_NODES";
   handler: () => void;
@@ -13,6 +28,11 @@ export interface HandleError extends EventHandler {
 export interface SetLoading extends EventHandler {
   name: "SET_LOADING";
   handler: (isLoading: boolean) => void;
+}
+
+export interface SetUILoaded extends EventHandler {
+  name: "SET_UI_LOADED";
+  handler: () => void;
 }
 
 export interface SaveApiKey extends EventHandler {
