@@ -1,15 +1,30 @@
-import { getApiKey } from "./apiKey";
-import { emit, once, showUI } from "@create-figma-plugin/utilities";
+import {
+  emit,
+  once,
+  showUI,
+  saveSettingsAsync,
+  loadSettingsAsync,
+} from "@create-figma-plugin/utilities";
 
 import { clusterTextualNodes } from "./clusterTextualNodes";
+import {
+  ClusterTextualNodes,
+  HandleError,
+  SaveApiKey,
+  SetLoading,
+} from "./types";
 
-import { ClusterTextualNodes, HandleError, SaveApiKey } from "./types";
-import { saveApiKey } from "./apiKey";
+const SETTINGS_KEY = "autocluster-settings";
+
+const defaultSettings = {
+  apiKey: "",
+  threshold: 0.155,
+};
 
 export default function () {
   once<SaveApiKey>("SAVE_API_KEY", async function (apiKey: string) {
     try {
-      await saveApiKey(apiKey);
+      await saveSettingsAsync({ apiKey }, SETTINGS_KEY);
     } catch (error: any) {
       emit<HandleError>("HANDLE_ERROR", error.message);
     }
@@ -17,16 +32,23 @@ export default function () {
 
   once<ClusterTextualNodes>("CLUSTER_TEXTUAL_NODES", async function () {
     try {
-      const apiKey = await getApiKey();
-      await clusterTextualNodes(apiKey);
+      emit<SetLoading>("SET_LOADING", true);
+      const { apiKey, threshold } = await loadSettingsAsync(
+        defaultSettings,
+        SETTINGS_KEY
+      );
+      console.log({ apiKey, threshold });
+      await clusterTextualNodes({ apiKey, threshold });
     } catch (error: any) {
       emit<HandleError>("HANDLE_ERROR", error.message);
+    } finally {
+      emit<SetLoading>("SET_LOADING", false);
     }
     // figma.closePlugin();
   });
 
   showUI({
-    height: 250,
-    width: 240,
+    height: 300,
+    width: 280,
   });
 }

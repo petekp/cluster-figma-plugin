@@ -14,11 +14,17 @@ import { emit, once } from "@create-figma-plugin/utilities";
 import { h } from "preact";
 import { useCallback, useState } from "preact/hooks";
 
-import { ClusterTextualNodes, HandleError, SaveApiKey } from "./types";
+import {
+  ClusterTextualNodes,
+  HandleError,
+  SaveApiKey,
+  SetLoading,
+} from "./types";
 
 function Plugin() {
   const [apiKey, setApiKey] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleClusterButtonClick = useCallback(
     function () {
@@ -28,11 +34,7 @@ function Plugin() {
         return;
       }
       setError("");
-      try {
-        emit<ClusterTextualNodes>("CLUSTER_TEXTUAL_NODES");
-      } catch (error: any) {
-        setError(error.message);
-      }
+      emit<ClusterTextualNodes>("CLUSTER_TEXTUAL_NODES");
     },
     [apiKey]
   );
@@ -45,6 +47,7 @@ function Plugin() {
   );
 
   once<HandleError>("HANDLE_ERROR", setError);
+  once<SetLoading>("SET_LOADING", setIsLoading);
 
   return (
     <Container space="medium">
@@ -68,7 +71,11 @@ function Plugin() {
 
       <VerticalSpace space="extraLarge" />
       <Columns space="extraSmall">
-        <Button fullWidth onClick={handleClusterButtonClick}>
+        <Button
+          loading={isLoading}
+          fullWidth
+          onClick={handleClusterButtonClick}
+        >
           Cluster
         </Button>
       </Columns>

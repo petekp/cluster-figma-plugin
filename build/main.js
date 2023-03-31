@@ -37,21 +37,6 @@
   };
   var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-  // src/apiKey.ts
-  var saveApiKey, getApiKey;
-  var init_apiKey = __esm({
-    "src/apiKey.ts"() {
-      "use strict";
-      saveApiKey = async (apiKey) => {
-        await figma.clientStorage.setAsync("apiKey", apiKey);
-      };
-      getApiKey = async () => {
-        const apiKey = await figma.clientStorage.getAsync("apiKey");
-        return apiKey;
-      };
-    }
-  });
-
   // node_modules/@create-figma-plugin/utilities/lib/events.js
   function on(name, handler) {
     const id = `${currentId}`;
@@ -106,6 +91,24 @@
     }
   });
 
+  // node_modules/@create-figma-plugin/utilities/lib/settings.js
+  async function loadSettingsAsync(defaultSettings2, settingsKey = DEFAULT_SETTINGS_KEY) {
+    const settings = await figma.clientStorage.getAsync(settingsKey);
+    if (typeof settings === "undefined") {
+      return defaultSettings2;
+    }
+    return Object.assign({}, defaultSettings2, settings);
+  }
+  async function saveSettingsAsync(settings, settingsKey = DEFAULT_SETTINGS_KEY) {
+    await figma.clientStorage.setAsync(settingsKey, settings);
+  }
+  var DEFAULT_SETTINGS_KEY;
+  var init_settings = __esm({
+    "node_modules/@create-figma-plugin/utilities/lib/settings.js"() {
+      DEFAULT_SETTINGS_KEY = "settings";
+    }
+  });
+
   // node_modules/@create-figma-plugin/utilities/lib/ui.js
   function showUI(options, data) {
     if (typeof __html__ === "undefined") {
@@ -125,12 +128,16 @@
   var init_lib = __esm({
     "node_modules/@create-figma-plugin/utilities/lib/index.js"() {
       init_events();
+      init_settings();
       init_ui();
     }
   });
 
   // src/clusterTextualNodes.ts
-  async function clusterTextualNodes(apiKey) {
+  async function clusterTextualNodes({
+    apiKey,
+    threshold
+  }) {
     const isFigJam = figma.editorType === "figjam";
     function isTextualNode(node) {
       return isFigJam ? node.type === "STICKY" : node.type === "TEXT";
@@ -154,7 +161,11 @@
     }
     const normalizedEmbeddings = normalizeEmbeddings(textEmbeddings);
     const distanceMatrix = calculateDistanceMatrix(normalizedEmbeddings);
-    const clusteredLayersData = clusterLayers(textLayers, distanceMatrix);
+    const clusteredLayersData = clusterLayers({
+      textLayers,
+      distanceMatrix,
+      threshold
+    });
     async function generateClusterLabels(clusteredLayers) {
       const labels = [];
       for (const cluster of clusteredLayers) {
@@ -297,11 +308,14 @@ Output:`
       throw new Error(data.error.message);
     }
   }
-  function clusterLayers(layers, distanceMatrix) {
-    const threshold = 0.155;
+  function clusterLayers({
+    textLayers,
+    distanceMatrix,
+    threshold = 0.155
+  }) {
     const clusters = hierarchicalClustering(distanceMatrix, threshold);
     const clusteredLayers = clusters.map(
-      (cluster) => cluster.map((index) => layers[index])
+      (cluster) => cluster.map((index) => textLayers[index])
     );
     const clusterLabels = clusters.map((_, index) => `Cluster ${index + 1}`);
     return { clusterLabels, clusteredLayers };
@@ -322,6 +336,7 @@ Output:`
         container.name = clusterLabels[i];
       } else {
         container = figma.createFrame();
+        container.clipsContent = true;
         container.name = clusterLabels[i];
         container.layoutMode = "VERTICAL";
         container.primaryAxisAlignItems = "MIN";
@@ -385,31 +400,42 @@ Output:`
   function main_default() {
     once("SAVE_API_KEY", async function(apiKey) {
       try {
-        await saveApiKey(apiKey);
+        await saveSettingsAsync({ apiKey }, SETTINGS_KEY);
       } catch (error) {
         emit("HANDLE_ERROR", error.message);
       }
     });
     once("CLUSTER_TEXTUAL_NODES", async function() {
       try {
-        const apiKey = await getApiKey();
-        await clusterTextualNodes(apiKey);
+        emit("SET_LOADING", true);
+        const { apiKey, threshold } = await loadSettingsAsync(
+          defaultSettings,
+          SETTINGS_KEY
+        );
+        console.log({ apiKey, threshold });
+        await clusterTextualNodes({ apiKey, threshold });
       } catch (error) {
         emit("HANDLE_ERROR", error.message);
+      } finally {
+        emit("SET_LOADING", false);
       }
     });
     showUI({
-      height: 250,
-      width: 240
+      height: 300,
+      width: 280
     });
   }
+  var SETTINGS_KEY, defaultSettings;
   var init_main = __esm({
     "src/main.ts"() {
       "use strict";
-      init_apiKey();
       init_lib();
       init_clusterTextualNodes();
-      init_apiKey();
+      SETTINGS_KEY = "autocluster-settings";
+      defaultSettings = {
+        apiKey: "",
+        threshold: 0.155
+      };
     }
   });
 

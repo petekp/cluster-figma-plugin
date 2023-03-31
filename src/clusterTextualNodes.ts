@@ -1,6 +1,12 @@
 type TextualNode = TextNode | StickyNode;
 
-export async function clusterTextualNodes(apiKey: string) {
+export async function clusterTextualNodes({
+  apiKey,
+  threshold,
+}: {
+  apiKey: string;
+  threshold: number;
+}) {
   // Retrieve all text layers
 
   const isFigJam = figma.editorType === "figjam";
@@ -35,7 +41,11 @@ export async function clusterTextualNodes(apiKey: string) {
   const normalizedEmbeddings = normalizeEmbeddings(textEmbeddings);
   const distanceMatrix = calculateDistanceMatrix(normalizedEmbeddings);
 
-  const clusteredLayersData = clusterLayers(textLayers, distanceMatrix);
+  const clusteredLayersData = clusterLayers({
+    textLayers,
+    distanceMatrix,
+    threshold,
+  });
 
   // Generate cluster labels
   async function generateClusterLabels(
@@ -242,16 +252,20 @@ async function getTextEmbeddings({
 }
 
 // Cluster the text layers using the custom hierarchical clustering function
-function clusterLayers(
-  layers: TextualNode[],
-  distanceMatrix: number[][]
-): { clusterLabels: string[]; clusteredLayers: TextualNode[][] } {
-  const threshold = 0.155; // Adjust the threshold to control the granularity of the clusters
+function clusterLayers({
+  textLayers,
+  distanceMatrix,
+  threshold = 0.155,
+}: {
+  textLayers: TextualNode[];
+  distanceMatrix: number[][];
+  threshold: number;
+}): { clusterLabels: string[]; clusteredLayers: TextualNode[][] } {
   const clusters = hierarchicalClustering(distanceMatrix, threshold);
 
   // Convert clusters from array of indices to array of TextNodes
   const clusteredLayers = clusters.map((cluster) =>
-    cluster.map((index: number) => layers[index])
+    cluster.map((index: number) => textLayers[index])
   );
 
   // Create cluster labels
@@ -282,6 +296,7 @@ function rearrangeLayersOnCanvas(clusteredLayersData: {
       container.name = clusterLabels[i];
     } else {
       container = figma.createFrame();
+      container.clipsContent = true;
       container.name = clusterLabels[i];
       container.layoutMode = "VERTICAL";
       container.primaryAxisAlignItems = "MIN";
