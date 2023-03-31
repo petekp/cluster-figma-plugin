@@ -7,8 +7,6 @@ export async function clusterTextualNodes({
   apiKey: string;
   threshold: number;
 }) {
-  // Retrieve all text layers
-
   const isFigJam = figma.editorType === "figjam";
 
   function isTextualNode(node: SceneNode): node is TextualNode {
@@ -19,7 +17,6 @@ export async function clusterTextualNodes({
 
   const textEmbeddings = await getTextEmbeddings({ textLayers, apiKey });
 
-  // Calculate distance matrix
   function calculateDistanceMatrix(embeddings: number[][]): number[][] {
     const matrix = [];
     for (let i = 0; i < embeddings.length; i++) {
@@ -47,7 +44,6 @@ export async function clusterTextualNodes({
     threshold,
   });
 
-  // Generate cluster labels
   async function generateClusterLabels(
     clusteredLayers: TextualNode[][]
   ): Promise<string[]> {
@@ -55,7 +51,7 @@ export async function clusterTextualNodes({
 
     for (const cluster of clusteredLayers) {
       const texts = cluster.map((layer) => getNodeTextCharacters(layer));
-      const maxLength = 20; // You can adjust the maximum length of the generated label
+      const maxLength = 20;
       const label = await generateSummary({ apiKey, texts, maxLength });
       labels.push(label);
     }
@@ -170,10 +166,8 @@ async function generateSummary({
   texts: string[];
   maxLength: number;
 }): Promise<string> {
-  // Join the text strings with newline characters
   const text = texts.join("\n");
 
-  // Generate a label using the OpenAI GPT-3 summarization model
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -207,13 +201,6 @@ async function generateSummary({
   } else {
     return "Unknown";
   }
-}
-
-function cosineSimilarity(x: number[], y: number[]): number {
-  const dot = x.reduce((sum, val, idx) => sum + val * y[idx], 0);
-  const normX = Math.sqrt(x.reduce((sum, val) => sum + val * val, 0));
-  const normY = Math.sqrt(y.reduce((sum, val) => sum + val * val, 0));
-  return dot / (normX * normY);
 }
 
 async function getTextEmbeddings({
@@ -251,7 +238,6 @@ async function getTextEmbeddings({
   }
 }
 
-// Cluster the text layers using the custom hierarchical clustering function
 function clusterLayers({
   textLayers,
   distanceMatrix,
@@ -263,27 +249,24 @@ function clusterLayers({
 }): { clusterLabels: string[]; clusteredLayers: TextualNode[][] } {
   const clusters = hierarchicalClustering(distanceMatrix, threshold);
 
-  // Convert clusters from array of indices to array of TextNodes
   const clusteredLayers = clusters.map((cluster) =>
     cluster.map((index: number) => textLayers[index])
   );
 
-  // Create cluster labels
   const clusterLabels = clusters.map((_, index) => `Cluster ${index + 1}`);
 
   return { clusterLabels, clusteredLayers };
 }
 
-// Rearrange the layers on the canvas based on clustering
 function rearrangeLayersOnCanvas(clusteredLayersData: {
   clusterLabels: string[];
   clusteredLayers: TextualNode[][];
 }): void {
   const framePadding = 12;
-  const textualNodeSpacing = 40; // Adjust the vertical spacing between layers
-  const horizontalSpacing = 40; // Adjust the horizontal spacing between columns
+  const textualNodeSpacing = 40;
+  const containerSpacing = 40;
   const { clusterLabels, clusteredLayers } = clusteredLayersData;
-  let currentXPosition = horizontalSpacing;
+  let currentXPosition = containerSpacing;
   const isFigJam = figma.editorType === "figjam";
 
   for (let i = 0; i < clusteredLayers.length; i++) {
@@ -310,7 +293,7 @@ function rearrangeLayersOnCanvas(clusteredLayersData: {
     }
 
     container.x = currentXPosition;
-    container.y = horizontalSpacing;
+    container.y = containerSpacing;
 
     let currentYPosition = textualNodeSpacing;
     let maxHeight = 0;
@@ -332,7 +315,7 @@ function rearrangeLayersOnCanvas(clusteredLayersData: {
     container.resizeWithoutConstraints(containerWidth, containerHeight);
 
     figma.currentPage.appendChild(container);
-    currentXPosition += containerWidth + horizontalSpacing;
+    currentXPosition += containerWidth + containerSpacing;
   }
 
   if (!isFigJam) {
@@ -345,7 +328,7 @@ function rearrangeLayersOnCanvas(clusteredLayersData: {
     // Apply auto layout & padding to frame container
     for (const node of figma.currentPage.children) {
       if (isFrameOrComponent(node) && node.layoutMode !== "NONE") {
-        node.y = horizontalSpacing;
+        node.y = containerSpacing;
         node.layoutMode = "VERTICAL";
         node.primaryAxisAlignItems = "MIN";
         node.counterAxisAlignItems = "MIN";
@@ -356,7 +339,7 @@ function rearrangeLayersOnCanvas(clusteredLayersData: {
         node.paddingLeft = framePadding;
         node.paddingRight = framePadding;
       } else if (node.type === "SECTION") {
-        node.y = horizontalSpacing;
+        node.y = containerSpacing;
       }
     }
   }
