@@ -361,10 +361,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/135cb1fe-24b6-470a-a031-66f372c4e973/banner.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/541b09b6-29af-40ab-a6d6-5c2b88a60ea9/banner.module.js
   var banner_module_default;
   var init_banner_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/135cb1fe-24b6-470a-a031-66f372c4e973/banner.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/541b09b6-29af-40ab-a6d6-5c2b88a60ea9/banner.module.js"() {
       if (document.getElementById("67d23b5a27") === null) {
         const element = document.createElement("style");
         element.id = "67d23b5a27";
@@ -573,10 +573,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/5d086a53-c630-48c1-a340-b9460763cf9f/loading-indicator.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/4ad5d446-1b52-4ecf-81e5-66f6d37122e8/loading-indicator.module.js
   var loading_indicator_module_default;
   var init_loading_indicator_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/5d086a53-c630-48c1-a340-b9460763cf9f/loading-indicator.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/4ad5d446-1b52-4ecf-81e5-66f6d37122e8/loading-indicator.module.js"() {
       if (document.getElementById("19e2187058") === null) {
         const element = document.createElement("style");
         element.id = "19e2187058";
@@ -627,10 +627,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/770240a4-1192-4bd2-aa17-1e773b5c43da/button.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/8700b3eb-7c33-485b-b8e6-c77ee1fa32cb/button.module.js
   var button_module_default;
   var init_button_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/770240a4-1192-4bd2-aa17-1e773b5c43da/button.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/8700b3eb-7c33-485b-b8e6-c77ee1fa32cb/button.module.js"() {
       if (document.getElementById("8c3348864f") === null) {
         const element = document.createElement("style");
         element.id = "8c3348864f";
@@ -800,10 +800,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/2467fd9e-955d-46fb-8eda-a84d022e7f46/icon.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/b6d07aca-58b6-49a1-836d-b76fd3125e0c/icon.module.js
   var icon_module_default;
   var init_icon_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/2467fd9e-955d-46fb-8eda-a84d022e7f46/icon.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/b6d07aca-58b6-49a1-836d-b76fd3125e0c/icon.module.js"() {
       if (document.getElementById("93bcadccf6") === null) {
         const element = document.createElement("style");
         element.id = "93bcadccf6";
@@ -847,10 +847,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/32d567dc-7d09-4685-9e48-4d12d600be2b/text.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/8b7f9e56-8451-4592-b469-9246f3b33405/text.module.js
   var text_module_default;
   var init_text_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/32d567dc-7d09-4685-9e48-4d12d600be2b/text.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/8b7f9e56-8451-4592-b469-9246f3b33405/text.module.js"() {
       if (document.getElementById("ba2e22e436") === null) {
         const element = document.createElement("style");
         element.id = "ba2e22e436";
@@ -1078,10 +1078,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/dda4a0ae-4580-4821-bfd3-adb63dc70097/textbox.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/dbbe0a26-4409-411c-b152-4c3f66acb0d8/textbox.module.js
   var textbox_module_default;
   var init_textbox_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/dda4a0ae-4580-4821-bfd3-adb63dc70097/textbox.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/dbbe0a26-4409-411c-b152-4c3f66acb0d8/textbox.module.js"() {
       if (document.getElementById("f0d299d9a8") === null) {
         const element = document.createElement("style");
         element.id = "f0d299d9a8";
@@ -1205,10 +1205,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/d8de3bc9-4432-4006-aad7-ffd94aa378d0/muted.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/3e9dfeaa-3374-4e43-bb31-01ba2fb4ba8a/muted.module.js
   var muted_module_default;
   var init_muted_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/d8de3bc9-4432-4006-aad7-ffd94aa378d0/muted.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/3e9dfeaa-3374-4e43-bb31-01ba2fb4ba8a/muted.module.js"() {
       if (document.getElementById("0ba069dde5") === null) {
         const element = document.createElement("style");
         element.id = "0ba069dde5";
@@ -1235,10 +1235,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/7c961ffc-831b-4b00-93c3-92f6a8af68f5/columns.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/a1a8fb29-6459-4a72-857d-1883bb825d67/columns.module.js
   var columns_module_default;
   var init_columns_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/7c961ffc-831b-4b00-93c3-92f6a8af68f5/columns.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/a1a8fb29-6459-4a72-857d-1883bb825d67/columns.module.js"() {
       if (document.getElementById("4c4ffb31b3") === null) {
         const element = document.createElement("style");
         element.id = "4c4ffb31b3";
@@ -1305,10 +1305,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/235ce6d3-434d-4384-8fc9-12b700ec4acc/container.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/007119ac-597e-4a58-9d41-3db335913ef1/container.module.js
   var container_module_default;
   var init_container_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/235ce6d3-434d-4384-8fc9-12b700ec4acc/container.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/007119ac-597e-4a58-9d41-3db335913ef1/container.module.js"() {
       if (document.getElementById("bff84682c1") === null) {
         const element = document.createElement("style");
         element.id = "bff84682c1";
@@ -1347,10 +1347,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/b225e22d-eeba-4415-9cca-1e28bbf1a048/vertical-space.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/f2e03809-c3fe-477c-ba34-30074d8d2608/vertical-space.module.js
   var vertical_space_module_default;
   var init_vertical_space_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/b225e22d-eeba-4415-9cca-1e28bbf1a048/vertical-space.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/f2e03809-c3fe-477c-ba34-30074d8d2608/vertical-space.module.js"() {
       if (document.getElementById("493f54b7db") === null) {
         const element = document.createElement("style");
         element.id = "493f54b7db";
@@ -1389,9 +1389,9 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/f31e5e65-0d60-403a-ab0e-91831a00406b/base.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/ccbea280-783b-424a-a736-340ade58de27/base.js
   var init_base = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/f31e5e65-0d60-403a-ab0e-91831a00406b/base.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/ccbea280-783b-424a-a736-340ade58de27/base.js"() {
       if (document.getElementById("a2c792d3d5") === null) {
         const element = document.createElement("style");
         element.id = "a2c792d3d5";
@@ -1563,7 +1563,15 @@ svg {
     );
     once("HANDLE_ERROR", setError);
     once("SET_LOADING", setIsLoading);
-    return /* @__PURE__ */ y(Container, { space: "medium" }, /* @__PURE__ */ y(VerticalSpace, { space: "large" }), /* @__PURE__ */ y(Text, null, /* @__PURE__ */ y(Muted, null, "OpenAI API Key")), /* @__PURE__ */ y(VerticalSpace, { space: "small" }), /* @__PURE__ */ y(Columns, { space: "extraSmall" }, /* @__PURE__ */ y(Textbox, { onValueInput: setApiKey, value: apiKey, variant: "border" }), /* @__PURE__ */ y(Button, { fullWidth: true, onClick: handleSaveApiKey, secondary: true }, "Save")), error && /* @__PURE__ */ y(Banner, { icon: /* @__PURE__ */ y(IconWarning32, null), variant: "warning" }, error), /* @__PURE__ */ y(VerticalSpace, { space: "extraLarge" }), /* @__PURE__ */ y(Columns, { space: "extraSmall" }, /* @__PURE__ */ y(
+    return /* @__PURE__ */ y(Container, { space: "medium" }, /* @__PURE__ */ y(VerticalSpace, { space: "large" }), /* @__PURE__ */ y(Text, null, /* @__PURE__ */ y(Muted, null, "OpenAI API Key")), /* @__PURE__ */ y(VerticalSpace, { space: "small" }), /* @__PURE__ */ y(Columns, { space: "extraSmall" }, /* @__PURE__ */ y(
+      Textbox,
+      {
+        onValueInput: setApiKey,
+        value: apiKey,
+        password: true,
+        variant: "border"
+      }
+    ), /* @__PURE__ */ y(Button, { fullWidth: true, onClick: handleSaveApiKey, secondary: true }, "Save")), error && /* @__PURE__ */ y(Banner, { icon: /* @__PURE__ */ y(IconWarning32, null), variant: "warning" }, error), /* @__PURE__ */ y(VerticalSpace, { space: "extraLarge" }), /* @__PURE__ */ y(Columns, { space: "extraSmall" }, /* @__PURE__ */ y(
       Button,
       {
         loading: isLoading,

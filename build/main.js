@@ -321,15 +321,14 @@ Output:`
     return { clusterLabels, clusteredLayers };
   }
   function rearrangeLayersOnCanvas(clusteredLayersData) {
-    const padding = 100;
-    const verticalSpacing = 40;
-    const horizontalSpacing = 100;
+    const framePadding = 12;
+    const textualNodeSpacing = 40;
+    const horizontalSpacing = 40;
     const { clusterLabels, clusteredLayers } = clusteredLayersData;
-    let currentXPosition = padding;
+    let currentXPosition = horizontalSpacing;
     const isFigJam = figma.editorType === "figjam";
     for (let i = 0; i < clusteredLayers.length; i++) {
       const cluster = clusteredLayers[i];
-      let maxHeight = 0;
       let container;
       if (isFigJam) {
         container = figma.createSection();
@@ -341,48 +340,53 @@ Output:`
         container.layoutMode = "VERTICAL";
         container.primaryAxisAlignItems = "MIN";
         container.counterAxisAlignItems = "MIN";
-        container.paddingBottom = 12;
-        container.paddingTop = 12;
-        container.paddingLeft = 12;
-        container.paddingRight = 12;
+        container.paddingBottom = framePadding;
+        container.paddingTop = framePadding;
+        container.paddingLeft = framePadding;
+        container.paddingRight = framePadding;
         container.counterAxisSizingMode = "AUTO";
         container.layoutGrow = 1;
       }
       container.x = currentXPosition;
-      container.y = padding;
+      container.y = horizontalSpacing;
+      let currentYPosition = textualNodeSpacing;
+      let maxHeight = 0;
+      let width = 0;
       for (let j = 0; j < cluster.length; j++) {
         const layer = cluster[j];
-        layer.x = 0;
-        layer.y = j * (layer.height + verticalSpacing);
+        layer.x = textualNodeSpacing;
+        layer.y = currentYPosition;
+        width = layer.width;
         maxHeight += layer.height;
         container.appendChild(layer);
+        currentYPosition += layer.height + textualNodeSpacing;
       }
-      if (!isFigJam) {
-        container.resizeWithoutConstraints(
-          container.width,
-          maxHeight + verticalSpacing
-        );
-      }
+      const containerWidth = width + textualNodeSpacing * 2;
+      const containerHeight = currentYPosition;
+      container.resizeWithoutConstraints(containerWidth, containerHeight);
       figma.currentPage.appendChild(container);
-      currentXPosition += container.width + horizontalSpacing;
+      currentXPosition += containerWidth + horizontalSpacing;
     }
-    function isFrameOrComponent(node) {
-      return node.type === "FRAME" || node.type === "COMPONENT";
-    }
-    for (const node of figma.currentPage.children) {
-      if (isFrameOrComponent(node) && node.layoutMode !== "NONE") {
-        node.y = padding;
-        node.layoutMode = "VERTICAL";
-        node.primaryAxisAlignItems = "MIN";
-        node.counterAxisAlignItems = "MIN";
-        node.counterAxisSizingMode = "AUTO";
-        node.layoutGrow = 1;
-        node.paddingBottom = 12;
-        node.paddingTop = 12;
-        node.paddingLeft = 18;
-        node.paddingRight = 18;
-      } else if (node.type === "SECTION") {
-        node.y = padding;
+    if (!isFigJam) {
+      let isFrameOrComponent2 = function(node) {
+        return node.type === "FRAME" || node.type === "COMPONENT";
+      };
+      var isFrameOrComponent = isFrameOrComponent2;
+      for (const node of figma.currentPage.children) {
+        if (isFrameOrComponent2(node) && node.layoutMode !== "NONE") {
+          node.y = horizontalSpacing;
+          node.layoutMode = "VERTICAL";
+          node.primaryAxisAlignItems = "MIN";
+          node.counterAxisAlignItems = "MIN";
+          node.counterAxisSizingMode = "AUTO";
+          node.layoutGrow = 1;
+          node.paddingBottom = framePadding;
+          node.paddingTop = framePadding;
+          node.paddingLeft = framePadding;
+          node.paddingRight = framePadding;
+        } else if (node.type === "SECTION") {
+          node.y = horizontalSpacing;
+        }
       }
     }
   }

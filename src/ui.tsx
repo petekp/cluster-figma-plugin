@@ -58,7 +58,12 @@ function Plugin() {
 
       <VerticalSpace space="small" />
       <Columns space="extraSmall">
-        <Textbox onValueInput={setApiKey} value={apiKey} variant="border" />
+        <Textbox
+          onValueInput={setApiKey}
+          value={apiKey}
+          password={true}
+          variant="border"
+        />
         <Button fullWidth onClick={handleSaveApiKey} secondary>
           Save
         </Button>
