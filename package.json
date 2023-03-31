@@ -2,6 +2,7 @@
   "dependencies": {
     "@create-figma-plugin/ui": "^2.3.0",
     "@create-figma-plugin/utilities": "^2.3.0",
+    "framer-motion": "^10.10.0",
     "preact": ">=10"
   },
   "devDependencies": {

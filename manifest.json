@@ -4,7 +4,7 @@
     "figma",
     "figjam"
   ],
-  "id": "AutoCluster-wbBKdTEne1",
+  "id": "autocluster-wbBKdTEne1",
   "name": "AutoCluster",
   "main": "build/main.js",
   "ui": "build/ui.js"
