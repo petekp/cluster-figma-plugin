@@ -361,10 +361,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/f2656b6b-04ba-4660-993e-9d4725be7fd5/banner.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/dfe9502e-a6f9-4991-80d6-beb6af0dd5d7/banner.module.js
   var banner_module_default;
   var init_banner_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/f2656b6b-04ba-4660-993e-9d4725be7fd5/banner.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/dfe9502e-a6f9-4991-80d6-beb6af0dd5d7/banner.module.js"() {
       if (document.getElementById("67d23b5a27") === null) {
         const element = document.createElement("style");
         element.id = "67d23b5a27";
@@ -577,10 +577,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/4e65b577-9955-44f8-8f03-e2f884997b53/loading-indicator.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/2242f424-824a-407a-8c87-a387fbfa3fc3/loading-indicator.module.js
   var loading_indicator_module_default;
   var init_loading_indicator_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/4e65b577-9955-44f8-8f03-e2f884997b53/loading-indicator.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/2242f424-824a-407a-8c87-a387fbfa3fc3/loading-indicator.module.js"() {
       if (document.getElementById("19e2187058") === null) {
         const element = document.createElement("style");
         element.id = "19e2187058";
@@ -631,10 +631,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/a8755f51-dda2-4518-9c67-daa800fb2edc/button.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/6adce355-c7db-4888-8921-522309723924/button.module.js
   var button_module_default;
   var init_button_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/a8755f51-dda2-4518-9c67-daa800fb2edc/button.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/6adce355-c7db-4888-8921-522309723924/button.module.js"() {
       if (document.getElementById("8c3348864f") === null) {
         const element = document.createElement("style");
         element.id = "8c3348864f";
@@ -804,10 +804,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/e9d49e10-aa5d-4d35-a81b-8b115284b361/icon.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/d2102e4a-bc11-421a-944c-5df0f64f4a99/icon.module.js
   var icon_module_default;
   var init_icon_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/e9d49e10-aa5d-4d35-a81b-8b115284b361/icon.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/d2102e4a-bc11-421a-944c-5df0f64f4a99/icon.module.js"() {
       if (document.getElementById("93bcadccf6") === null) {
         const element = document.createElement("style");
         element.id = "93bcadccf6";
@@ -851,10 +851,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/c9caf801-f7e4-44bb-99e2-6625b8c85771/text.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/4aa02d39-bc10-4658-a814-532ea1ab17c6/text.module.js
   var text_module_default;
   var init_text_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/c9caf801-f7e4-44bb-99e2-6625b8c85771/text.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/4aa02d39-bc10-4658-a814-532ea1ab17c6/text.module.js"() {
       if (document.getElementById("ba2e22e436") === null) {
         const element = document.createElement("style");
         element.id = "ba2e22e436";
@@ -1082,10 +1082,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/93311060-4f34-405d-bbcd-e3cda5fdd00b/textbox.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/b95e2e3f-a14c-4989-844f-2a8a653830f5/textbox.module.js
   var textbox_module_default;
   var init_textbox_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/93311060-4f34-405d-bbcd-e3cda5fdd00b/textbox.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/b95e2e3f-a14c-4989-844f-2a8a653830f5/textbox.module.js"() {
       if (document.getElementById("f0d299d9a8") === null) {
         const element = document.createElement("style");
         element.id = "f0d299d9a8";
@@ -1209,10 +1209,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/6a1220aa-47b7-4fee-a0ce-dd65d0532a82/columns.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/63340241-b70e-4ea3-819b-6b473d0135c1/columns.module.js
   var columns_module_default;
   var init_columns_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/6a1220aa-47b7-4fee-a0ce-dd65d0532a82/columns.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/63340241-b70e-4ea3-819b-6b473d0135c1/columns.module.js"() {
       if (document.getElementById("4c4ffb31b3") === null) {
         const element = document.createElement("style");
         element.id = "4c4ffb31b3";
@@ -1279,10 +1279,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/311aecc2-6d01-4130-88c9-641aa188eb66/container.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/9045fcac-da52-4c69-b05e-a6f0e3a93338/container.module.js
   var container_module_default;
   var init_container_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/311aecc2-6d01-4130-88c9-641aa188eb66/container.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/9045fcac-da52-4c69-b05e-a6f0e3a93338/container.module.js"() {
       if (document.getElementById("bff84682c1") === null) {
         const element = document.createElement("style");
         element.id = "bff84682c1";
@@ -1321,10 +1321,10 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/b061ba54-2a80-473c-9d53-f10a76a4e5a5/vertical-space.module.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/2162f5a5-489c-4f39-8749-50cb69a42db6/vertical-space.module.js
   var vertical_space_module_default;
   var init_vertical_space_module = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/b061ba54-2a80-473c-9d53-f10a76a4e5a5/vertical-space.module.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/2162f5a5-489c-4f39-8749-50cb69a42db6/vertical-space.module.js"() {
       if (document.getElementById("493f54b7db") === null) {
         const element = document.createElement("style");
         element.id = "493f54b7db";
@@ -1363,9 +1363,9 @@
     }
   });
 
-  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/2558e4e9-b238-4f3a-9da3-a89a8c094f40/base.js
+  // ../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/1171ea7c-ed62-449f-88a4-e6c2b0a50d06/base.js
   var init_base = __esm({
-    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/2558e4e9-b238-4f3a-9da3-a89a8c094f40/base.js"() {
+    "../../../../../../private/var/folders/cy/d034yhxn1czdtcwbq7l9938w0000gp/T/1171ea7c-ed62-449f-88a4-e6c2b0a50d06/base.js"() {
       if (document.getElementById("a2c792d3d5") === null) {
         const element = document.createElement("style");
         element.id = "a2c792d3d5";
@@ -1513,6 +1513,15 @@ svg {
   __export(ui_exports, {
     default: () => ui_default
   });
+  function loadScript(url, callback) {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = url;
+    if (typeof callback === "function") {
+      script.onload = callback;
+    }
+    document.head.appendChild(script);
+  }
   function Plugin() {
     const [settings, setSettings] = h2({
       apiKey: "",
@@ -1521,10 +1530,20 @@ svg {
     const [error, setError] = h2("");
     const [isLoading, setIsLoading] = h2(false);
     const [isFigJam, setIsFigJam] = h2(true);
+    const [isScriptLoaded, setScriptLoaded] = h2(false);
     const { apiKey, threshold } = settings;
     p2(() => {
       emit("SET_UI_LOADED");
+      loadScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
+        () => setScriptLoaded(true)
+      );
     }, []);
+    p2(() => {
+      if (isScriptLoaded) {
+        console.log("three.js loaded!");
+      }
+    }, [isScriptLoaded]);
     const handleClusterButtonClick = T2(
       function() {
         console.log("CLUSTER_TEXTUAL_NODES");
@@ -1537,17 +1556,11 @@ svg {
       },
       [apiKey, threshold, error]
     );
-    const handleSaveApiKey = T2(
-      function() {
-        emit("SAVE_API_KEY", apiKey);
-      },
-      [apiKey]
-    );
     once("SET_IS_FIGJAM", setIsFigJam);
     once("GET_SETTINGS", setSettings);
     on("HANDLE_ERROR", setError);
     on("SET_LOADING", setIsLoading);
-    return /* @__PURE__ */ y(Container, { space: "medium" }, /* @__PURE__ */ y(VerticalSpace, { space: "large" }), /* @__PURE__ */ y(Text, null, "OpenAI API Key"), /* @__PURE__ */ y(VerticalSpace, { space: "small" }), /* @__PURE__ */ y(Columns, { space: "extraSmall" }, /* @__PURE__ */ y(
+    return /* @__PURE__ */ y("div", { style: { position: "relative", height: "100%", width: "100%" } }, /* @__PURE__ */ y(Container, { space: "medium" }, /* @__PURE__ */ y(VerticalSpace, { space: "large" }), /* @__PURE__ */ y(Text, null, "OpenAI API Key"), /* @__PURE__ */ y(VerticalSpace, { space: "small" }), /* @__PURE__ */ y(Columns, { space: "extraSmall" }, /* @__PURE__ */ y(
       Textbox,
       {
         onValueInput: (val) => {
@@ -1572,9 +1585,33 @@ svg {
         variant: "warning"
       },
       error
-    ), /* @__PURE__ */ y(VerticalSpace, { space: "extraSmall" }), /* @__PURE__ */ y(Button, { loading: isLoading, fullWidth: true, onClick: handleClusterButtonClick }, "Cluster ", isFigJam ? "sticky notes" : "text layers"), /* @__PURE__ */ y(VerticalSpace, { space: "small" }));
+    ), /* @__PURE__ */ y(VerticalSpace, { space: "extraSmall" }), /* @__PURE__ */ y(
+      Button,
+      {
+        loading: isLoading,
+        fullWidth: true,
+        onClick: handleClusterButtonClick
+      },
+      "Cluster ",
+      isFigJam ? "sticky notes" : "text layers"
+    )), !isLoading && /* @__PURE__ */ y(
+      "div",
+      {
+        style: {
+          position: "absolute",
+          zIndex: 2,
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: "rgba(255,255,255,0.8)",
+          backdropFilter: "blur(10px)"
+        }
+      },
+      /* @__PURE__ */ y(StickyNotesAnimation, null)
+    ));
   }
-  var ui_default;
+  var NUM_NOTES, isCloseEnough, StickyNotesAnimation, ui_default;
   var init_ui = __esm({
     "src/ui.tsx"() {
       "use strict";
@@ -1582,6 +1619,133 @@ svg {
       init_lib();
       init_preact_module();
       init_hooks_module();
+      NUM_NOTES = 45;
+      isCloseEnough = (value, target, threshold) => {
+        return Math.abs(value - target) < threshold;
+      };
+      StickyNotesAnimation = () => {
+        const [notes, setNotes] = h2([]);
+        const [moveToInitial, setMoveToInitial] = h2(false);
+        const notesRef = _2(notes);
+        notesRef.current = notes;
+        p2(() => {
+          createClusters(3, 3);
+        }, []);
+        const createClusters = (numColumns, numRows) => {
+          const padding = 24;
+          const containerWidth = 280 - padding * 2;
+          const containerHeight = 200 - padding * 2;
+          const columnWidth = containerWidth / numColumns;
+          const rowHeight = containerHeight / numRows;
+          if (notes.length === 0) {
+            const newNotes = Array.from({ length: NUM_NOTES }, (_3, i3) => {
+              const x2 = Math.random() * 280 - 15;
+              const y2 = Math.random() * 200 - 15;
+              const targetCluster = Math.floor(Math.random() * numColumns);
+              const targetRow = Math.floor(Math.random() * numRows);
+              return {
+                id: i3,
+                x: x2,
+                y: y2,
+                initialX: x2,
+                initialY: y2,
+                targetX: columnWidth * targetCluster + columnWidth / 2 - 15 + padding,
+                targetY: rowHeight * targetRow + rowHeight / 2 - 15 + padding,
+                rotation: Math.random() * 360,
+                vx: 0,
+                vy: 0
+              };
+            });
+            setNotes(newNotes);
+          } else {
+            setNotes(
+              (prevNotes) => prevNotes.map((note) => {
+                const targetCluster = Math.floor(Math.random() * numColumns);
+                const targetRow = Math.floor(Math.random() * numRows);
+                return __spreadProps(__spreadValues({}, note), {
+                  targetX: columnWidth * targetCluster + columnWidth / 2 - 15 + padding,
+                  targetY: rowHeight * targetRow + rowHeight / 2 - 15 + padding
+                });
+              })
+            );
+          }
+        };
+        p2(() => {
+          const springConstant = 0.04;
+          const damping = 0.7;
+          const interval = setInterval(() => {
+            setNotes(
+              (prevNotes) => prevNotes.map((note) => {
+                const targetX = moveToInitial ? note.initialX : note.targetX;
+                const targetY = moveToInitial ? note.initialY : note.targetY;
+                const dx = targetX - note.x;
+                const dy = targetY - note.y;
+                const ax = dx * springConstant;
+                const ay = dy * springConstant;
+                const newVx = (note.vx + ax) * damping;
+                const newVy = (note.vy + ay) * damping;
+                return __spreadProps(__spreadValues({}, note), {
+                  x: note.x + newVx,
+                  y: note.y + newVy,
+                  rotation: moveToInitial ? note.rotation + Math.random() * 4 - 2 : 0,
+                  vx: newVx,
+                  vy: newVy
+                });
+              })
+            );
+            const allNotesAtTarget = notesRef.current.every((note) => {
+              const targetX = moveToInitial ? note.initialX : note.targetX;
+              const targetY = moveToInitial ? note.initialY : note.targetY;
+              return isCloseEnough(note.x, targetX, 0.1) && isCloseEnough(note.y, targetY, 0.1);
+            });
+            if (allNotesAtTarget) {
+              setMoveToInitial((prevState) => {
+                const newState = !prevState;
+                if (!newState) {
+                  const numColumns = Math.floor(Math.random() * 6) + 3;
+                  const numRows = numColumns > 5 ? 2 : 1;
+                  createClusters(numColumns, numRows);
+                }
+                return newState;
+              });
+            }
+          }, 16);
+          return () => {
+            clearInterval(interval);
+          };
+        }, [moveToInitial]);
+        return /* @__PURE__ */ y("svg", { viewBox: "0 0 280 200" }, /* @__PURE__ */ y("defs", null, /* @__PURE__ */ y(
+          "linearGradient",
+          {
+            id: "stickyNoteGradient",
+            x1: "0%",
+            y1: "0%",
+            x2: "0%",
+            y2: "100%"
+          },
+          /* @__PURE__ */ y("stop", { offset: "0%", style: { stopColor: "#FFD700", stopOpacity: 1 } }),
+          /* @__PURE__ */ y(
+            "stop",
+            {
+              offset: "100%",
+              style: { stopColor: "#FFC289", stopOpacity: 1 }
+            }
+          )
+        )), notes.map((note) => /* @__PURE__ */ y(
+          "rect",
+          {
+            key: note.id,
+            x: note.x,
+            y: note.y,
+            width: "30",
+            height: "30",
+            fill: "url(#stickyNoteGradient)",
+            stroke: "#BE7A2E",
+            strokeWidth: "1",
+            transform: `rotate(${note.rotation}, ${note.x + 15}, ${note.y + 15})`
+          }
+        )));
+      };
       ui_default = render(Plugin);
     }
   });
