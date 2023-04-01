@@ -3,12 +3,10 @@ import { EventHandler } from "@create-figma-plugin/utilities";
 export type Settings = {
   apiKey: string;
   threshold: number;
+  isFigJam: boolean;
 };
 
-export interface SetIsFigJam extends EventHandler {
-  name: "SET_IS_FIGJAM";
-  handler: (isFigJam: boolean) => void;
-}
+export interface ClusterProps extends Settings {}
 
 export interface GetSettings extends EventHandler {
   name: "GET_SETTINGS";
@@ -17,7 +15,7 @@ export interface GetSettings extends EventHandler {
 
 export interface ClusterTextualNodes extends EventHandler {
   name: "CLUSTER_TEXTUAL_NODES";
-  handler: () => void;
+  handler: ({ apiKey, threshold }: ClusterProps) => void;
 }
 
 export interface HandleError extends EventHandler {

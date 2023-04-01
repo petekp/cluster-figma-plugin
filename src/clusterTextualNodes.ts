@@ -1,14 +1,12 @@
-type TextualNode = TextNode | StickyNode;
+import { ClusterProps } from "./types";
 
-const isFigJam = figma.editorType === "figjam";
+type TextualNode = TextNode | StickyNode;
 
 export async function clusterTextualNodes({
   apiKey,
   threshold,
-}: {
-  apiKey: string;
-  threshold: number;
-}) {
+  isFigJam,
+}: ClusterProps) {
   function isTextualNode(node: SceneNode): node is TextualNode {
     return isFigJam ? node.type === "STICKY" : node.type === "TEXT";
   }

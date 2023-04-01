@@ -37,6 +37,16 @@
   };
   var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
+  // src/constants.ts
+  var UI_WIDTH, UI_HEIGHT;
+  var init_constants = __esm({
+    "src/constants.ts"() {
+      "use strict";
+      UI_WIDTH = 280;
+      UI_HEIGHT = 180;
+    }
+  });
+
   // node_modules/@create-figma-plugin/utilities/lib/events.js
   function on(name, handler) {
     const id = `${currentId}`;
@@ -136,7 +146,8 @@
   // src/clusterTextualNodes.ts
   async function clusterTextualNodes({
     apiKey,
-    threshold
+    threshold,
+    isFigJam
   }) {
     function isTextualNode(node) {
       return isFigJam ? node.type === "STICKY" : node.type === "TEXT";
@@ -342,11 +353,11 @@ Generate Label:`,
     const containerSpacing = 40;
     const { clusterLabels, clusteredLayers } = clusteredLayersData;
     let currentXPosition = containerSpacing;
-    const isFigJam2 = figma.editorType === "figjam";
+    const isFigJam = figma.editorType === "figjam";
     for (let i = 0; i < clusteredLayers.length; i++) {
       const cluster = clusteredLayers[i];
       let container;
-      if (isFigJam2) {
+      if (isFigJam) {
         container = figma.createSection();
         container.name = clusterLabels[i];
       } else {
@@ -383,7 +394,7 @@ Generate Label:`,
       figma.currentPage.appendChild(container);
       currentXPosition += containerWidth + containerSpacing;
     }
-    if (!isFigJam2) {
+    if (!isFigJam) {
       let isFrameOrComponent2 = function(node) {
         return node.type === "FRAME" || node.type === "COMPONENT";
       };
@@ -406,19 +417,16 @@ Generate Label:`,
       }
     }
   }
-  var isFigJam;
   var init_clusterTextualNodes = __esm({
     "src/clusterTextualNodes.ts"() {
       "use strict";
-      isFigJam = figma.editorType === "figjam";
     }
   });
 
   // src/main.ts
   var main_exports = {};
   __export(main_exports, {
-    default: () => main_default,
-    defaultSettings: () => defaultSettings
+    default: () => main_default
   });
   function main_default() {
     on("SAVE_API_KEY", async function(apiKey) {
@@ -429,42 +437,43 @@ Generate Label:`,
       }
     });
     once("SET_UI_LOADED", async function() {
-      emit("SET_IS_FIGJAM", figma.editorType === "figjam");
       const settings = await loadSettingsAsync(defaultSettings, SETTINGS_KEY);
-      console.log("loaded settings", settings);
       emit("GET_SETTINGS", settings);
     });
-    on("CLUSTER_TEXTUAL_NODES", async function() {
-      try {
-        emit("SET_LOADING", true);
-        const { apiKey, threshold } = await loadSettingsAsync(
-          defaultSettings,
-          SETTINGS_KEY
-        );
-        console.log({ apiKey, threshold });
-        await clusterTextualNodes({ apiKey, threshold });
-      } catch (error) {
-        emit("HANDLE_ERROR", error.message);
-      } finally {
-        emit("SET_LOADING", false);
+    on(
+      "CLUSTER_TEXTUAL_NODES",
+      async function({ apiKey, threshold, isFigJam }) {
+        try {
+          emit("SET_LOADING", true);
+          await clusterTextualNodes({ apiKey, threshold, isFigJam });
+        } catch (error) {
+          emit("HANDLE_ERROR", error.message);
+        } finally {
+          emit("SET_LOADING", false);
+        }
       }
-    });
-    showUI({
-      height: 200,
-      width: 280
-    });
+    );
+    showUI(
+      {
+        height: UI_HEIGHT,
+        width: UI_WIDTH
+      },
+      { defaultSettings }
+    );
   }
   var SETTINGS_KEY, defaultSettings;
   var init_main = __esm({
     "src/main.ts"() {
       "use strict";
+      init_constants();
       init_lib();
       init_clusterTextualNodes();
       SETTINGS_KEY = "autocluster-settings";
       defaultSettings = {
         apiKey: "",
         // threshold: 0.155,
-        threshold: 0.16
+        threshold: 0.16,
+        isFigJam: figma.editorType === "figjam"
       };
     }
   });

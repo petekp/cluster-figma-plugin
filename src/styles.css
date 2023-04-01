@@ -1,0 +1,32 @@
+.outerContainer {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.innerContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingContainer {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.loadingContainer.isVisible {
+  opacity: 1;
+}

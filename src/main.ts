@@ -1,3 +1,4 @@
+import { UI_HEIGHT, UI_WIDTH } from "./constants";
 import {
   emit,
   once,
@@ -9,21 +10,22 @@ import {
 
 import { clusterTextualNodes } from "./clusterTextualNodes";
 import {
+  ClusterProps,
   ClusterTextualNodes,
   GetSettings,
   HandleError,
   SaveApiKey,
-  SetIsFigJam,
   SetLoading,
   SetUILoaded,
 } from "./types";
 
 const SETTINGS_KEY = "autocluster-settings";
 
-export const defaultSettings = {
+const defaultSettings = {
   apiKey: "",
   // threshold: 0.155,
   threshold: 0.16,
+  isFigJam: figma.editorType === "figjam",
 };
 
 export default function () {
@@ -36,30 +38,29 @@ export default function () {
   });
 
   once<SetUILoaded>("SET_UI_LOADED", async function () {
-    emit<SetIsFigJam>("SET_IS_FIGJAM", figma.editorType === "figjam");
     const settings = await loadSettingsAsync(defaultSettings, SETTINGS_KEY);
-    console.log("loaded settings", settings);
     emit<GetSettings>("GET_SETTINGS", settings);
   });
 
-  on<ClusterTextualNodes>("CLUSTER_TEXTUAL_NODES", async function () {
-    try {
-      emit<SetLoading>("SET_LOADING", true);
-      const { apiKey, threshold } = await loadSettingsAsync(
-        defaultSettings,
-        SETTINGS_KEY
-      );
-      console.log({ apiKey, threshold });
-      await clusterTextualNodes({ apiKey, threshold });
-    } catch (error: any) {
-      emit<HandleError>("HANDLE_ERROR", error.message);
-    } finally {
-      emit<SetLoading>("SET_LOADING", false);
+  on<ClusterTextualNodes>(
+    "CLUSTER_TEXTUAL_NODES",
+    async function ({ apiKey, threshold, isFigJam }: ClusterProps) {
+      try {
+        emit<SetLoading>("SET_LOADING", true);
+        await clusterTextualNodes({ apiKey, threshold, isFigJam });
+      } catch (error: any) {
+        emit<HandleError>("HANDLE_ERROR", error.message);
+      } finally {
+        emit<SetLoading>("SET_LOADING", false);
+      }
     }
-  });
+  );
 
-  showUI({
-    height: 200,
-    width: 280,
-  });
+  showUI(
+    {
+      height: UI_HEIGHT,
+      width: UI_WIDTH,
+    },
+    { defaultSettings }
+  );
 }
