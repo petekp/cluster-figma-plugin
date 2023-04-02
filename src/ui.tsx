@@ -66,6 +66,7 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
   const { apiKey, threshold: initialThreshold, isFigJam } = settings;
 
   const [error, setError] = useState<string>("");
+  const [showRequired, setShowRequired] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [thresholdNum, setThresholdNum] = useState<number>(initialThreshold);
 
@@ -79,10 +80,11 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
     function () {
       console.log("CLUSTER_TEXTUAL_NODES");
       if (apiKey === "") {
-        setError("API Key is required");
+        setShowRequired(true);
         return;
       }
       setError("");
+      setShowRequired(false);
       emit<ClusterTextualNodes>("CLUSTER_TEXTUAL_NODES", {
         apiKey,
         threshold: thresholdNum,
@@ -105,16 +107,27 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
         space="medium"
         style={{ pointerEvents: isLoading ? "none" : "all" }}
       >
-        <Text>OpenAI API Key</Text>
+        <Text>
+          OpenAI API Key{" "}
+          {showRequired && (
+            <span style={{ marginLeft: 4, fontWeight: 600, color: "#E95324" }}>
+              ← Required
+            </span>
+          )}
+        </Text>
+
         <VerticalSpace space="small" />
         <Columns space="extraSmall">
           <Textbox
             onValueInput={(val: string) => {
               setSettings({ ...settings, apiKey: val.trim() });
               emit<SaveApiKey>("SAVE_API_KEY", val.trim());
-              setError("");
             }}
             value={apiKey}
+            onFocusCapture={() => {
+              setError("");
+              setShowRequired(false);
+            }}
             password={true}
             variant="border"
           />

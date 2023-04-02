@@ -4,8 +4,8 @@
     "figma",
     "figjam"
   ],
-  "id": "autocluster-wbBKdTEne1",
-  "name": "AutoCluster",
+  "id": "cluster-wbBKdTEne1",
+  "name": "Cluster",
   "main": "build/main.js",
   "ui": "build/ui.js"
 }

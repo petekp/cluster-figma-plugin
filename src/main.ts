@@ -19,7 +19,7 @@ import {
   SetUILoaded,
 } from "./types";
 
-const SETTINGS_KEY = "autocluster-settings";
+const SETTINGS_KEY = "cluster-plugin";
 
 const defaultSettings = {
   apiKey: "",
