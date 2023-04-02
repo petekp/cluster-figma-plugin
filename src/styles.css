@@ -12,6 +12,14 @@
   align-items: center;
 }
 
+.figma-light .loadingContainer {
+  background: rgba(236,225,255,0.7);
+}
+
+.figma-dark .loadingContainer {
+  background: rgba(236,225,255,0.2);
+}
+
 .loadingContainer {
   position: absolute;
   z-index: 2;
@@ -19,14 +27,15 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255,255,255,0.7);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease-in-out;
+
+  backdrop-filter: blur(0px);
+  transition: all 0.24s ease-out;
   opacity: 0;
   pointer-events: none;
   user-select: none;
 }
 
 .loadingContainer.isVisible {
+  backdrop-filter: blur(10px);
   opacity: 1;
 }

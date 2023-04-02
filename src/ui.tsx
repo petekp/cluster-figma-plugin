@@ -28,11 +28,48 @@ import StickyNotesAnimation from "./StickyNotesAnimation";
 
 import styles from "./styles.css";
 
+const thresholdValueMap = {
+  Small: 0.135,
+  Medium: 0.16,
+  Large: 0.2,
+} as const;
+
+type ThresholdControlOption = keyof typeof thresholdValueMap;
+
+export const ThresholdSelector = function ({
+  onChange,
+}: {
+  onChange: (threshold: ThresholdControlOption) => void;
+}) {
+  const [threshold, setThreshold] = useState<ThresholdControlOption>("Medium");
+  const options: Array<SegmentedControlOption> = [
+    { value: "Small" },
+    { value: "Medium" },
+    { value: "Large" },
+  ];
+  function handleChange(event: JSX.TargetedEvent<HTMLInputElement>) {
+    const newValue = event.currentTarget.value;
+    onChange(newValue as ThresholdControlOption);
+    setThreshold(newValue as ThresholdControlOption);
+  }
+  return (
+    <SegmentedControl
+      onChange={handleChange}
+      options={options}
+      value={threshold}
+    />
+  );
+};
+
 function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
   const [settings, setSettings] = useState<Settings>(defaultSettings);
+  const { apiKey, threshold: initialThreshold, isFigJam } = settings;
+
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { apiKey, threshold, isFigJam } = settings;
+  const [thresholdNum, setThresholdNum] = useState<number>(initialThreshold);
+
+  console.log({ thresholdNum });
 
   useEffect(() => {
     emit<SetUILoaded>("SET_UI_LOADED");
@@ -48,11 +85,11 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
       setError("");
       emit<ClusterTextualNodes>("CLUSTER_TEXTUAL_NODES", {
         apiKey,
-        threshold,
+        threshold: thresholdNum,
         isFigJam,
       });
     },
-    [apiKey, threshold, error]
+    [apiKey, thresholdNum, error]
   );
 
   once<GetSettings>("GET_SETTINGS", setSettings);
@@ -64,7 +101,10 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
     <div style={styles.outerContainer}>
       <VerticalSpace space="large" />
 
-      <Container space="medium">
+      <Container
+        space="medium"
+        style={{ pointerEvents: isLoading ? "none" : "all" }}
+      >
         <Text>OpenAI API Key</Text>
         <VerticalSpace space="small" />
         <Columns space="extraSmall">
@@ -84,10 +124,8 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
         {error && (
           <Banner
             style={{
-              wordBreak: "break-all",
               maxWidth: "100%",
               overflow: "hidden",
-              userSelect: "auto",
             }}
             icon={<IconWarning32 />}
             variant="warning"
@@ -96,7 +134,9 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
           </Banner>
         )}
         <VerticalSpace space="small" />
-
+        <ThresholdSelector
+          onChange={(val) => setThresholdNum(thresholdValueMap[val])}
+        />
         <VerticalSpace space="small" />
         <Button
           loading={isLoading}

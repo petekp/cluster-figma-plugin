@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState, useRef } from "preact/hooks";
 import { h } from "preact";
 import { UI_HEIGHT, UI_WIDTH } from "./constants";
+import { Button } from "@create-figma-plugin/ui";
 
 interface StickyNotesAnimationProps {
   isPlaying: boolean;
@@ -19,7 +20,7 @@ interface StickyNote {
   vy: number;
 }
 
-const NUM_NOTES = 35;
+const NUM_NOTES = 24;
 const STICKY_SIZE = 30;
 
 const isCloseEnough = (value: number, target: number, threshold: number) => {
@@ -141,13 +142,13 @@ export default function StickyNotesAnimation({
 
         if (allNotesAtTarget) {
           setMoveToInitial((prevState) => {
-            const newState = !prevState;
-            if (!newState) {
+            const isInitialState = !prevState;
+            if (!isInitialState) {
               const numColumns = Math.floor(Math.random() * 6) + 1;
               const numRows = Math.floor(Math.random() * 4) + 1;
               createClusters(numColumns, numRows);
             }
-            return newState;
+            return isInitialState;
           });
         }
       }, 16);
@@ -168,10 +169,10 @@ export default function StickyNotesAnimation({
           x2="0%"
           y2="100%"
         >
-          <stop offset="0%" style={{ stopColor: "#FFD967", stopOpacity: 1 }} />
+          <stop offset="0%" style={{ stopColor: "#FFF", stopOpacity: 1 }} />
           <stop
             offset="100%"
-            style={{ stopColor: "rgba(255, 194, 137, 1)", stopOpacity: 1 }}
+            style={{ stopColor: "rgba(237, 249, 255, 1)", stopOpacity: 1 }}
           />
         </linearGradient>
       </defs>
@@ -183,18 +184,15 @@ export default function StickyNotesAnimation({
           width={STICKY_SIZE}
           height={STICKY_SIZE}
           fill="url(#stickyNoteGradient)"
-          stroke="rgba(190, 122, 46, 1)"
-          strokeWidth="1"
-          style={{
-            filter: moveToInitial
-              ? "drop-shadow(0px 3px 3px rgba(190, 122, 46, 0.35)"
-              : "none",
-          }}
+          stroke="rgba(210, 189, 245, 1)"
           transform={`rotate(${note.rotation}, ${note.x + STICKY_SIZE / 2}, ${
             note.y + STICKY_SIZE / 2
           })`}
         />
       ))}
+      <Button style={{ marginTop: -20 }} onClick={() => setMoveToInitial(true)}>
+        Move to initial
+      </Button>
     </svg>
   );
 }
