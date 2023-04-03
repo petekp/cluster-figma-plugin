@@ -1,6 +1,7 @@
 declare const styles: {
   readonly "outerContainer": string;
   readonly "innerContainer": string;
+  readonly "warningBanner": string;
   readonly "figma-light": string;
   readonly "loadingContainer": string;
   readonly "figma-dark": string;

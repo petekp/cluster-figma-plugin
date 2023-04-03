@@ -28,6 +28,22 @@ import StickyNotesAnimation from "./StickyNotesAnimation";
 
 import styles from "./styles.css";
 
+const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+const parseTextWithUrl = (text: string) => {
+  const parts = text.split(urlRegex);
+
+  return parts.map((part, index) =>
+    urlRegex.test(part) ? (
+      <a key={index} href={part} target="_blank" rel="noopener noreferrer">
+        {part}
+      </a>
+    ) : (
+      part
+    )
+  );
+};
+
 const thresholdValueMap = {
   Small: 0.135,
   Medium: 0.16,
@@ -136,20 +152,19 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
 
         {error && (
           <Banner
-            style={{
-              maxWidth: "100%",
-              overflow: "hidden",
-            }}
+            className={styles.warningBanner}
             icon={<IconWarning32 />}
             variant="warning"
           >
-            {error}
+            <span className={styles.warningBanner}>
+              {parseTextWithUrl(error)}
+            </span>
           </Banner>
         )}
-        <VerticalSpace space="small" />
+        {/* <VerticalSpace space="small" />
         <ThresholdSelector
           onChange={(val) => setThresholdNum(thresholdValueMap[val])}
-        />
+        /> */}
         <VerticalSpace space="small" />
         <Button
           loading={isLoading}

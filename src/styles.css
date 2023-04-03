@@ -12,6 +12,11 @@
   align-items: center;
 }
 
+.warningBanner {
+  word-break: break-word;
+  overflow: hidden;
+}
+
 .figma-light .loadingContainer {
   background: rgba(236,225,255,0.7);
 }
