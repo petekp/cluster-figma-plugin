@@ -17,12 +17,12 @@
   overflow: hidden;
 }
 
-.figma-light .loadingContainer {
-  background: rgba(236,225,255,0.7);
+:global(.figma-light) .loadingContainer {
+  background-color: rgba(255,255,255,0.75);
 }
 
-.figma-dark .loadingContainer {
-  background: rgba(236,225,255,0.2);
+:global(.figma-dark) .loadingContainer {
+  background-color: rgba(30,30,30,0.7);
 }
 
 .loadingContainer {
@@ -32,7 +32,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-
   backdrop-filter: blur(0px);
   transition: all 0.24s ease-out;
   opacity: 0;

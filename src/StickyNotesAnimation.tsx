@@ -169,10 +169,13 @@ export default function StickyNotesAnimation({
           x2="0%"
           y2="100%"
         >
-          <stop offset="0%" style={{ stopColor: "#FFF", stopOpacity: 1 }} />
+          <stop
+            offset="0%"
+            style={{ stopColor: "rgba(226, 208, 255, 1)", stopOpacity: 1 }}
+          />
           <stop
             offset="100%"
-            style={{ stopColor: "rgba(237, 249, 255, 1)", stopOpacity: 1 }}
+            style={{ stopColor: "rgba(213, 187, 255, 1)", stopOpacity: 1 }}
           />
         </linearGradient>
       </defs>
@@ -184,7 +187,7 @@ export default function StickyNotesAnimation({
           width={STICKY_SIZE}
           height={STICKY_SIZE}
           fill="url(#stickyNoteGradient)"
-          stroke="rgba(210, 189, 245, 1)"
+          stroke="rgba(57, 20, 118, 0.13)"
           transform={`rotate(${note.rotation}, ${note.x + STICKY_SIZE / 2}, ${
             note.y + STICKY_SIZE / 2
           })`}
