@@ -300,6 +300,8 @@ function rearrangeLayersOnCanvas(clusteredLayersData: {
   let currentXPosition = containerSpacing;
   const isFigJam = figma.editorType === "figjam";
 
+  const containers: (FrameNode | SectionNode)[] = [];
+
   for (let i = 0; i < clusteredLayers.length; i++) {
     const cluster = clusteredLayers[i];
 
@@ -348,6 +350,7 @@ function rearrangeLayersOnCanvas(clusteredLayersData: {
 
     figma.currentPage.appendChild(container);
     currentXPosition += containerWidth + containerSpacing;
+    containers.push(container);
   }
 
   if (!isFigJam) {
@@ -375,4 +378,6 @@ function rearrangeLayersOnCanvas(clusteredLayersData: {
       }
     }
   }
+
+  figma.viewport.scrollAndZoomIntoView(containers);
 }
