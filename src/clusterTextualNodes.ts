@@ -8,7 +8,7 @@ export async function clusterTextualNodes({
   isFigJam,
 }: ClusterProps) {
   function isTextualNode(node: SceneNode): node is TextualNode {
-    return isFigJam ? node.type === "STICKY" : node.type === "TEXT";
+    return node.type === "STICKY" || node.type === "TEXT";
   }
 
   const selectedLayers = figma.currentPage.selection.filter(isTextualNode);
@@ -148,8 +148,22 @@ function getLeafNodes(cluster: Cluster): number[] {
   return cluster.children.flatMap(getLeafNodes);
 }
 
-function getNodeTextCharacters(node: TextualNode): string {
-  return node.type === "STICKY" ? node.text.characters : node.characters;
+function getNodeTextCharacters(node: SceneNode): string {
+  if (node.type === "STICKY") {
+    return (node as StickyNode).text.characters;
+  } else if (node.type === "TEXT") {
+    return (node as TextNode).characters;
+  } else if (node.type === "COMPONENT") {
+    const textChild = node.children.find(
+      (child) => child.type === "TEXT" || child.type === "STICKY"
+    );
+    if (textChild) {
+      return textChild.type === "TEXT"
+        ? (textChild as TextNode).characters
+        : (textChild as StickyNode).text.characters;
+    }
+  }
+  return "";
 }
 
 function normalizeEmbeddings(embeddings: number[][]): number[][] {
@@ -198,7 +212,6 @@ Sticky notes: ${text}\n\nGenerate Label:`,
   });
 
   const data = await response.json();
-  console.log({ data });
   if (data.choices && data.choices.length > 0 && data.choices[0].text) {
     return data.choices[0].text.trim();
   } else {
@@ -214,7 +227,11 @@ async function getTextEmbeddings({
   textLayers: TextualNode[];
 }): Promise<number[][]> {
   const texts = textLayers
-    .map((layer) => getNodeTextCharacters(layer))
+    .map((layer) => {
+      const text =
+        layer.type === "STICKY" ? layer.text.characters : layer.characters;
+      return text;
+    })
     .filter((text) => text.trim() !== "");
 
   const response = await fetch("https://api.openai.com/v1/embeddings", {
@@ -230,7 +247,6 @@ async function getTextEmbeddings({
   });
 
   const data = await response.json();
-  console.log({ data });
   if (data.data && data.data.length > 0) {
     const textEmbeddings = data.data.map(
       (item: { embedding: number[] }) => item.embedding
@@ -250,7 +266,6 @@ function clusterLayers({
   distanceMatrix: number[][];
   threshold: number;
 }): { clusterLabels: string[]; clusteredLayers: TextualNode[][] } {
-  console.log(threshold);
   const clusters = hierarchicalClustering(distanceMatrix, threshold);
 
   const clusteredLayers = clusters.map((cluster) =>
@@ -294,6 +309,7 @@ function rearrangeLayersOnCanvas(clusteredLayersData: {
       container.paddingRight = framePadding;
       container.counterAxisSizingMode = "AUTO";
       container.layoutGrow = 1;
+      container.itemSpacing = 12;
     }
 
     container.x = currentXPosition;
