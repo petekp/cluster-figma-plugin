@@ -1,4 +1,4 @@
-import { ClusterProps } from "./types";
+import { ClusterProps, Rect } from "./types";
 
 type TextualNode = TextNode | StickyNode;
 
@@ -297,8 +297,12 @@ function rearrangeLayersOnCanvas(clusteredLayersData: {
   const textualNodeSpacing = 40;
   const containerSpacing = 40;
   const { clusterLabels, clusteredLayers } = clusteredLayersData;
-  let currentXPosition = containerSpacing;
+
   const isFigJam = figma.editorType === "figjam";
+
+  const existingLayers = figma.currentPage.children;
+  const boundingBox = calculateBoundingBox(existingLayers);
+  let currentXPosition = boundingBox.x + boundingBox.width + containerSpacing;
 
   const containers: (FrameNode | SectionNode)[] = [];
 
@@ -380,4 +384,25 @@ function rearrangeLayersOnCanvas(clusteredLayersData: {
   }
 
   figma.viewport.scrollAndZoomIntoView(containers);
+}
+
+function calculateBoundingBox(nodes: readonly SceneNode[]): Rect {
+  let minX = Number.MAX_VALUE;
+  let minY = Number.MAX_VALUE;
+  let maxX = Number.MIN_VALUE;
+  let maxY = Number.MIN_VALUE;
+
+  for (const node of nodes) {
+    minX = Math.min(minX, node.x);
+    minY = Math.min(minY, node.y);
+    maxX = Math.max(maxX, node.x + node.width);
+    maxY = Math.max(maxY, node.y + node.height);
+  }
+
+  return {
+    x: minX,
+    y: minY,
+    width: maxX - minX,
+    height: maxY - minY,
+  };
 }

@@ -6,6 +6,13 @@ export type Settings = {
   isFigJam: boolean;
 };
 
+export type Rect = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+
 export interface ClusterProps extends Settings {}
 
 export interface GetSettings extends EventHandler {
