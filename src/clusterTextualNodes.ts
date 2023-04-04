@@ -7,15 +7,27 @@ export async function clusterTextualNodes({
   threshold,
   isFigJam,
 }: ClusterProps) {
+  figma.skipInvisibleInstanceChildren = true;
+
   function isTextualNode(node: SceneNode): node is TextualNode {
     return node.type === "STICKY" || node.type === "TEXT";
   }
 
-  const selectedLayers = figma.currentPage.selection.filter(isTextualNode);
+  function isNodeVisible(node: TextualNode): boolean {
+    return node.visible && node.opacity > 0;
+  }
+
+  const selectedLayers = figma.currentPage.selection
+    .filter(isTextualNode)
+    .filter(isNodeVisible);
   const textLayers =
     selectedLayers.length > 0
       ? selectedLayers
-      : (figma.currentPage.findAll(isTextualNode) as TextualNode[]);
+      : (figma.currentPage
+          .findAllWithCriteria({
+            types: ["STICKY", "TEXT"],
+          })
+          .filter(isNodeVisible) as TextualNode[]);
 
   const textEmbeddings = await getTextEmbeddings({ textLayers, apiKey });
 
