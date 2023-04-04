@@ -23,6 +23,11 @@ export interface HandleError extends EventHandler {
   handler: (error: string) => void;
 }
 
+export interface SetSelectedNodes extends EventHandler {
+  name: "SET_SELECTED_NODES";
+  handler: (numNodesSelected: number) => void;
+}
+
 export interface SetLoading extends EventHandler {
   name: "SET_LOADING";
   handler: (isLoading: boolean) => void;

@@ -16,6 +16,7 @@ import {
   HandleError,
   SaveApiKey,
   SetLoading,
+  SetSelectedNodes,
   SetUILoaded,
 } from "./types";
 
@@ -29,6 +30,13 @@ const defaultSettings = {
 };
 
 export default function () {
+  figma.on("selectionchange", () => {
+    emit<SetSelectedNodes>(
+      "SET_SELECTED_NODES",
+      figma.currentPage.selection.length
+    );
+  });
+
   on<SaveApiKey>("SAVE_API_KEY", async function (apiKey: string) {
     try {
       await saveSettingsAsync({ apiKey }, SETTINGS_KEY);

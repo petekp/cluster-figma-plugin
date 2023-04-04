@@ -21,6 +21,7 @@ import {
   HandleError,
   SaveApiKey,
   SetLoading,
+  SetSelectedNodes,
   SetUILoaded,
   Settings,
 } from "./types";
@@ -52,6 +53,27 @@ const thresholdValueMap = {
 
 type ThresholdControlOption = keyof typeof thresholdValueMap;
 
+function getButtonText({
+  isFigJam,
+  numNodesSelected = 0,
+}: {
+  isFigJam: boolean;
+  numNodesSelected: number;
+}) {
+  if (isFigJam) {
+    const pluralized = numNodesSelected === 1 ? "note" : "notes";
+    return numNodesSelected > 0
+      ? `Cluster ${numNodesSelected} selected sticky ${pluralized}`
+      : "Cluster all sticky notes";
+  }
+
+  const pluralized = numNodesSelected === 1 ? "layer" : "layers";
+
+  return numNodesSelected > 0
+    ? `Cluster ${numNodesSelected} text ${pluralized}`
+    : "Cluster all text layers";
+}
+
 export const ThresholdSelector = function ({
   onChange,
 }: {
@@ -80,13 +102,12 @@ export const ThresholdSelector = function ({
 function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
   const [settings, setSettings] = useState<Settings>(defaultSettings);
   const { apiKey, threshold: initialThreshold, isFigJam } = settings;
+  const [numNodesSelected, setNumNodesSelected] = useState<number>(0);
 
   const [error, setError] = useState<string>("");
   const [showRequired, setShowRequired] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [thresholdNum, setThresholdNum] = useState<number>(initialThreshold);
-
-  console.log({ thresholdNum });
 
   useEffect(() => {
     emit<SetUILoaded>("SET_UI_LOADED");
@@ -94,7 +115,6 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
 
   const handleClusterButtonClick = useCallback(
     function () {
-      console.log("CLUSTER_TEXTUAL_NODES");
       if (apiKey === "") {
         setShowRequired(true);
         return;
@@ -113,7 +133,7 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
   once<GetSettings>("GET_SETTINGS", setSettings);
   on<HandleError>("HANDLE_ERROR", setError);
   on<SetLoading>("SET_LOADING", setIsLoading);
-  console.log("is figjam", isFigJam);
+  on<SetSelectedNodes>("SET_SELECTED_NODES", setNumNodesSelected);
 
   return (
     <div style={styles.outerContainer}>
@@ -171,7 +191,7 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
           fullWidth
           onClick={handleClusterButtonClick}
         >
-          Cluster {isFigJam ? "sticky notes" : "text layers"}
+          {getButtonText({ isFigJam, numNodesSelected })}
         </Button>
         <VerticalSpace space="large" />
       </Container>
