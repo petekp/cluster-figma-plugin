@@ -11,7 +11,11 @@ export async function clusterTextualNodes({
     return isFigJam ? node.type === "STICKY" : node.type === "TEXT";
   }
 
-  const textLayers = figma.currentPage.findAll(isTextualNode) as TextualNode[];
+  const selectedLayers = figma.currentPage.selection.filter(isTextualNode);
+  const textLayers =
+    selectedLayers.length > 0
+      ? selectedLayers
+      : (figma.currentPage.findAll(isTextualNode) as TextualNode[]);
 
   const textEmbeddings = await getTextEmbeddings({ textLayers, apiKey });
 
