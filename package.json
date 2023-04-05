@@ -20,7 +20,7 @@
       "figma",
       "figjam"
     ],
-    "id": "1224570363098830825",
+    "id": "1225501037116774854",
     "name": "Cluster",
     "main": "src/main.ts",
     "ui": "src/ui.tsx"
