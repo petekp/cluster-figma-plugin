@@ -35,6 +35,11 @@ export interface SetSelectedNodes extends EventHandler {
   handler: (numNodesSelected: number) => void;
 }
 
+export interface HandleKeySavedReceived extends EventHandler {
+  name: "KEY_SAVED_RECEIVED";
+  handler: (keySaved: boolean) => void;
+}
+
 export interface SetLoading extends EventHandler {
   name: "SET_LOADING";
   handler: (isLoading: boolean) => void;

@@ -126,12 +126,22 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
         threshold: thresholdNum,
         isFigJam,
       });
+      emit<SaveApiKey>("SAVE_API_KEY", settings.apiKey.trim());
     },
     [apiKey, thresholdNum, error]
   );
 
+  const handleError = useCallback(
+    function (error: string) {
+      setError(error);
+      setIsLoading(false);
+      setSettings({ ...settings, apiKey: "" });
+    },
+    [error]
+  );
+
   once<GetSettings>("GET_SETTINGS", setSettings);
-  on<HandleError>("HANDLE_ERROR", setError);
+  on<HandleError>("HANDLE_ERROR", handleError);
   on<SetLoading>("SET_LOADING", setIsLoading);
   on<SetSelectedNodes>("SET_SELECTED_NODES", setNumNodesSelected);
 
@@ -157,7 +167,6 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
           <Textbox
             onValueInput={(val: string) => {
               setSettings({ ...settings, apiKey: val.trim() });
-              emit<SaveApiKey>("SAVE_API_KEY", val.trim());
             }}
             value={apiKey}
             onFocusCapture={() => {
@@ -168,6 +177,7 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
             variant="border"
           />
         </Columns>
+
         {error && <VerticalSpace space="small" />}
 
         {error && (
