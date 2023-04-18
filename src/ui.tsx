@@ -126,6 +126,7 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
         threshold: thresholdNum,
         isFigJam,
       });
+      emit<SaveApiKey>("SAVE_API_KEY", settings.apiKey.trim());
     },
     [apiKey, thresholdNum, error]
   );
@@ -157,7 +158,6 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
           <Textbox
             onValueInput={(val: string) => {
               setSettings({ ...settings, apiKey: val.trim() });
-              emit<SaveApiKey>("SAVE_API_KEY", val.trim());
             }}
             value={apiKey}
             onFocusCapture={() => {
@@ -168,6 +168,7 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
             variant="border"
           />
         </Columns>
+
         {error && <VerticalSpace space="small" />}
 
         {error && (
