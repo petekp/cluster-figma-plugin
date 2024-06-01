@@ -1,9 +1,9 @@
 declare const styles: {
-  readonly "outerContainer": string;
   readonly "innerContainer": string;
-  readonly "warningBanner": string;
-  readonly "loadingContainer": string;
   readonly "isVisible": string;
+  readonly "loadingContainer": string;
+  readonly "outerContainer": string;
+  readonly "warningBanner": string;
 };
 export = styles;
 

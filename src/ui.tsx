@@ -148,13 +148,14 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
   return (
     <div style={styles.outerContainer}>
       <VerticalSpace space="large" />
+      <VerticalSpace space="large" />
 
       <Container
         space="medium"
         style={{ pointerEvents: isLoading ? "none" : "all" }}
       >
         <Text>
-          OpenAI API Key{" "}
+          Your OpenAI API Key{" "}
           {showRequired && (
             <span style={{ marginLeft: 4, fontWeight: 600, color: "#E95324" }}>
               ← Required

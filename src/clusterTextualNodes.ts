@@ -66,7 +66,7 @@ export async function clusterTextualNodes({
     for (const cluster of clusteredLayers) {
       const texts = cluster.map((layer) => getNodeTextCharacters(layer));
       const maxLength = 20;
-      const label = await generateSummary({ apiKey, texts, maxLength });
+      const label = await generateLabel({ apiKey, texts, maxLength });
       labels.push(label);
     }
     return labels;
@@ -185,7 +185,32 @@ function normalizeEmbeddings(embeddings: number[][]): number[][] {
   });
 }
 
-async function generateSummary({
+async function fetchAvailableModels(
+  apiKey: string
+): Promise<Array<{ id: string }>> {
+  const response = await fetch("https://api.openai.com/v1/models", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+    },
+  });
+
+  const { data: availableModels } = await response.json();
+  return availableModels;
+}
+
+function getModelToUse(availableModels: Array<{ id: string }>): string {
+  const modelPriority = ["gpt-4o", "gpt-4-turbo", "gpt-4", "gpt-3.5-turbo"];
+  return (
+    modelPriority.find((model) =>
+      availableModels.some((availableModel) =>
+        availableModel.id.includes(model)
+      )
+    ) || "gpt-3.5"
+  );
+}
+
+async function generateLabel({
   apiKey,
   texts,
   maxLength,
@@ -195,37 +220,51 @@ async function generateSummary({
   maxLength: number;
 }): Promise<string> {
   const text = texts.join(", ");
+  const availableModels = await fetchAvailableModels(apiKey);
+  const model = getModelToUse(availableModels);
 
-  const response = await fetch("https://api.openai.com/v1/completions", {
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "text-davinci-003",
-      prompt: `Your task is to create a concise and descriptive label for a cluster of similar sticky notes. Please follow these guidelines for an effective label:\n
-
-The sticky notes have been organized through affinity mapping, which groups information based on natural relationships.\n
-Your label should summarize the core idea of the clustered sticky notes in 3 words or fewer.\n
-Avoid using unhelpful words like "category" or "cluster," numbers, quotation marks, periods, or any extraneous punctuation in your output.\n
-\n
-Here are some examples of effective labels:\n
-If the sticky notes focus on improving user interfaces, an effective label could be "UI Enhancements"\n
-If the sticky notes discuss various usability testing methods, a suitable label might be "Usability Testing"\n
-If the sticky notes are related to design principles, an appropriate label could be "Design Principles"\n
-If the sticky notes address accessibility requirements, a good label could be "Accessibility Standards"\n
-If the sticky notes cover strategies for effective user onboarding, a fitting label might be "User Onboarding"\n
-If the sticky notes explore ways to optimize app performance, an apt label could be "Performance Optimization"\n
-\n
-Sticky notes: ${text}\n\nGenerate Label:`,
+      model,
+      messages: [
+        {
+          role: "system",
+          content: `Your task is to create a concise and descriptive label for a cluster of similar sticky notes. Please follow these guidelines for an effective label:\n
+          The sticky notes have been organized through affinity mapping, which groups information based on natural relationships.\n
+          Your label should summarize the core idea of the clustered sticky notes in 3 words or fewer.\n
+          Avoid using unhelpful words like "category" or "cluster," numbers, quotation marks, periods, or any extraneous punctuation in your output.\n
+          \n
+          Here are some examples of effective labels:\n
+          If the sticky notes focus on improving user interfaces, an effective label could be "UI Enhancements"\n
+          If the sticky notes discuss various usability testing methods, a suitable label might be "Usability Testing"\n
+          If the sticky notes are related to design principles, an appropriate label could be "Design Principles"\n
+          If the sticky notes address accessibility requirements, a good label could be "Accessibility Standards"\n
+          If the sticky notes cover strategies for effective user onboarding, a fitting label might be "User Onboarding"\n
+          If the sticky notes explore ways to optimize app performance, an apt label could be "Performance Optimization"\n`,
+        },
+        {
+          role: "user",
+          content: `Sticky notes collection: ${text}`,
+        },
+      ],
       max_tokens: maxLength,
     }),
   });
 
   const data = await response.json();
-  if (data.choices && data.choices.length > 0 && data.choices[0].text) {
-    return data.choices[0].text.trim();
+
+  if (
+    data.choices &&
+    data.choices.length > 0 &&
+    data.choices[0].message &&
+    data.choices[0].message.content
+  ) {
+    return data.choices[0].message.content.trim();
   } else {
     return "Unknown";
   }

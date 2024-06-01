@@ -1,11 +1,1 @@
-{
-  "api": "1.0.0",
-  "editorType": [
-    "figma",
-    "figjam"
-  ],
-  "id": "1225501037116774854",
-  "name": "Cluster",
-  "main": "build/main.js",
-  "ui": "build/ui.js"
-}
+{"api":"1.0.0","editorType":["figma","figjam"],"id":"1225501037116774854","name":"Cluster","main":"build/main.js","ui":"build/ui.js"}
