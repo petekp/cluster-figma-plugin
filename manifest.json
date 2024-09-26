@@ -1,1 +1,1 @@
-{"api":"1.0.0","editorType":["figma","figjam"],"id":"1225501037116774854","name":"Cluster","main":"build/main.js","ui":"build/ui.js"}
+{"api":"1.0.0","editorType":["figma","figjam"],"id":"1225501037116774854","name":"Cluster","main":"build/main.js","ui":"build/ui.js","networkAccess":{"allowedDomains":["https://api.openai.com/v1/models","https://api.openai.com/v1/embeddings","https://api.openai.com/v1/chat/completions"],"reasoning":"OpenAI endpoints for embeddings and chat completions"},"documentAccess":"dynamic-page"}

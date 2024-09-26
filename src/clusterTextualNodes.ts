@@ -29,6 +29,10 @@ export async function clusterTextualNodes({
           })
           .filter(isNodeVisible) as TextualNode[]);
 
+  if (!selectedLayers.length && !textLayers.length) {
+    throw new Error("No sticky notes or text layers found");
+  }
+
   const textEmbeddings = await getTextEmbeddings({ textLayers, apiKey });
 
   function calculateDistanceMatrix(embeddings: number[][]): number[][] {
@@ -199,7 +203,7 @@ async function fetchAvailableModels(
   return availableModels;
 }
 
-function getModelToUse(availableModels: Array<{ id: string }>): string {
+function chooseLabelingModel(availableModels: Array<{ id: string }>): string {
   const modelPriority = ["gpt-4o", "gpt-4-turbo", "gpt-4", "gpt-3.5-turbo"];
   return (
     modelPriority.find((model) =>
@@ -221,7 +225,7 @@ async function generateLabel({
 }): Promise<string> {
   const text = texts.join(", ");
   const availableModels = await fetchAvailableModels(apiKey);
-  const model = getModelToUse(availableModels);
+  const model = chooseLabelingModel(availableModels);
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
@@ -270,6 +274,21 @@ async function generateLabel({
   }
 }
 
+function chooseEmbeddingModel(availableModels: Array<{ id: string }>): string {
+  const modelPriority = [
+    "text-embedding-ada-002",
+    "text-embedding-3-large",
+    "text-embedding-3-small",
+  ];
+  return (
+    modelPriority.find((model) =>
+      availableModels.some((availableModel) =>
+        availableModel.id.includes(model)
+      )
+    ) || "text-embedding-ada-002"
+  );
+}
+
 async function getTextEmbeddings({
   apiKey,
   textLayers,
@@ -277,6 +296,8 @@ async function getTextEmbeddings({
   apiKey: string;
   textLayers: TextualNode[];
 }): Promise<number[][]> {
+  const availableModels = await fetchAvailableModels(apiKey);
+
   const texts = textLayers
     .map((layer) => {
       const text =
@@ -292,7 +313,7 @@ async function getTextEmbeddings({
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "text-embedding-ada-002",
+      model: chooseEmbeddingModel(availableModels),
       input: texts,
     }),
   });
