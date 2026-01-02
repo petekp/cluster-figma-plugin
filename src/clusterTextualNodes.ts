@@ -204,13 +204,19 @@ async function fetchAvailableModels(
 }
 
 function chooseLabelingModel(availableModels: Array<{ id: string }>): string {
-  const modelPriority = ["gpt-4o", "gpt-4-turbo", "gpt-4", "gpt-3.5-turbo"];
+  const modelPriority = [
+    "gpt-4o-mini",
+    "gpt-4o",
+    "gpt-4-turbo",
+    "gpt-4",
+    "gpt-3.5-turbo",
+  ];
   return (
     modelPriority.find((model) =>
       availableModels.some((availableModel) =>
         availableModel.id.includes(model)
       )
-    ) || "gpt-3.5"
+    ) || "gpt-4o-mini"
   );
 }
 
@@ -276,16 +282,16 @@ async function generateLabel({
 
 function chooseEmbeddingModel(availableModels: Array<{ id: string }>): string {
   const modelPriority = [
-    "text-embedding-ada-002",
-    "text-embedding-3-large",
     "text-embedding-3-small",
+    "text-embedding-3-large",
+    "text-embedding-ada-002",
   ];
   return (
     modelPriority.find((model) =>
       availableModels.some((availableModel) =>
         availableModel.id.includes(model)
       )
-    ) || "text-embedding-ada-002"
+    ) || "text-embedding-3-small"
   );
 }
 

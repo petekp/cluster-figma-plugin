@@ -3,7 +3,7 @@ import {
   Button,
   Columns,
   Container,
-  IconWarning32,
+  IconWarning16,
   render,
   Text,
   Textbox,
@@ -175,7 +175,6 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
               setShowRequired(false);
             }}
             password={true}
-            variant="border"
           />
         </Columns>
 
@@ -184,7 +183,7 @@ function Plugin({ defaultSettings }: { defaultSettings: Settings }) {
         {error && (
           <Banner
             className={styles.warningBanner}
-            icon={<IconWarning32 />}
+            icon={<IconWarning16 />}
             variant="warning"
           >
             <span className={styles.warningBanner}>
