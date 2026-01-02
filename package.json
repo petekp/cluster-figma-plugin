@@ -4,13 +4,12 @@
     "@create-figma-plugin/utilities": "^4.0.3",
     "@types/crypto-js": "^4.2.2",
     "crypto-js": "^4.2.0",
-    "framer-motion": "^12.0.0",
     "preact": ">=10.24.1"
   },
   "devDependencies": {
     "@create-figma-plugin/build": "^4.0.3",
     "@create-figma-plugin/tsconfig": "^4.0.3",
-    "@figma/plugin-typings": "^1.117.0",
+    "@figma/plugin-typings": "^1.121.0",
     "typescript": ">=5"
   },
   "scripts": {
