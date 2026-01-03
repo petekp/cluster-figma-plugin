@@ -204,12 +204,18 @@ async function fetchAvailableModels(
 }
 
 function chooseLabelingModel(availableModels: Array<{ id: string }>): string {
+  // Prioritize newer, more cost-effective models for simple labeling tasks
+  // GPT-4.1 family (April 2025) offers best instruction-following
+  // o4-mini is a reasoning model - overkill for labels but included as fallback
   const modelPriority = [
-    "gpt-4o-mini",
-    "gpt-4o",
-    "gpt-4-turbo",
-    "gpt-4",
-    "gpt-3.5-turbo",
+    "gpt-4.1-nano",    // Cheapest and fastest, great for short labels
+    "gpt-4.1-mini",    // Good balance of cost and capability
+    "gpt-4o-mini",     // Reliable fallback
+    "gpt-4.1",         // More capable if needed
+    "gpt-4o",          // Legacy but still works
+    "o4-mini",         // Reasoning model, good fallback
+    "gpt-4-turbo",     // Older but reliable
+    "gpt-3.5-turbo",   // Oldest fallback
   ];
   return (
     modelPriority.find((model) =>
@@ -281,6 +287,9 @@ async function generateLabel({
 }
 
 function chooseEmbeddingModel(availableModels: Array<{ id: string }>): string {
+  // text-embedding-3 models (Jan 2024) are still the latest as of 2025
+  // text-embedding-3-small: Best value ($0.02/1M tokens), 1536 dimensions
+  // text-embedding-3-large: Highest quality ($0.13/1M tokens), 3072 dimensions
   const modelPriority = [
     "text-embedding-3-small",
     "text-embedding-3-large",
