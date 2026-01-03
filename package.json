@@ -25,9 +25,10 @@
       "allowedDomains": [
         "https://api.openai.com/v1/models",
         "https://api.openai.com/v1/embeddings",
-        "https://api.openai.com/v1/chat/completions"
+        "https://api.openai.com/v1/chat/completions",
+        "https://api.anthropic.com/v1/messages"
       ],
-      "reasoning": "OpenAI endpoints for embeddings and chat completions"
+      "reasoning": "OpenAI endpoints for embeddings and chat completions, Anthropic endpoint for Claude labeling"
     },
     "documentAccess": "dynamic-page",
     "id": "1225501037116774854",
