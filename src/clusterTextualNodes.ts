@@ -2,12 +2,33 @@ import { ClusterProps, Rect } from "./types";
 
 type TextualNode = TextNode | StickyNode;
 
+// API key type detection
+type ApiProvider = "openai" | "anthropic";
+
+function detectApiProvider(apiKey: string): ApiProvider {
+  // Anthropic keys start with "sk-ant-"
+  if (apiKey.startsWith("sk-ant-")) {
+    return "anthropic";
+  }
+  // OpenAI keys start with "sk-" (but not "sk-ant-")
+  return "openai";
+}
+
 export async function clusterTextualNodes({
   apiKey,
   threshold,
   isFigJam,
 }: ClusterProps) {
   figma.skipInvisibleInstanceChildren = true;
+
+  const provider = detectApiProvider(apiKey);
+
+  // Embeddings require OpenAI - Anthropic doesn't have an embeddings API
+  if (provider === "anthropic") {
+    throw new Error(
+      "Embeddings require an OpenAI API key. Anthropic Claude does not provide an embeddings API. Please use an OpenAI key (starts with 'sk-')."
+    );
+  }
 
   function isTextualNode(node: SceneNode): node is TextualNode {
     return node.type === "STICKY" || node.type === "TEXT";
@@ -189,7 +210,11 @@ function normalizeEmbeddings(embeddings: number[][]): number[][] {
   });
 }
 
-async function fetchAvailableModels(
+// ============================================================================
+// OpenAI API Functions
+// ============================================================================
+
+async function fetchAvailableOpenAIModels(
   apiKey: string
 ): Promise<Array<{ id: string }>> {
   const response = await fetch("https://api.openai.com/v1/models", {
@@ -200,21 +225,39 @@ async function fetchAvailableModels(
   });
 
   const { data: availableModels } = await response.json();
-  return availableModels;
+  return availableModels || [];
 }
 
-function chooseLabelingModel(availableModels: Array<{ id: string }>): string {
-  const modelPriority = ["gpt-4o", "gpt-4-turbo", "gpt-4", "gpt-3.5-turbo"];
+function chooseOpenAILabelingModel(
+  availableModels: Array<{ id: string }>
+): string {
+  // GPT-5 family (2025) - latest and most capable
+  // GPT-4.1 family (April 2025) - good instruction-following
+  // Prioritize cost-effective models for simple labeling tasks
+  const modelPriority = [
+    "gpt-5-mini",      // Fast and cost-effective GPT-5 variant
+    "gpt-5.2",         // Latest GPT-5 version (Dec 2025)
+    "gpt-5.1",         // Previous GPT-5 version
+    "gpt-5",           // Base GPT-5
+    "gpt-4.1-nano",    // Cheapest GPT-4.1, great for short labels
+    "gpt-4.1-mini",    // Good balance of cost and capability
+    "gpt-4o-mini",     // Reliable fallback
+    "gpt-4.1",         // More capable if needed
+    "gpt-4o",          // Legacy but still works
+    "o4-mini",         // Reasoning model, good fallback
+    "gpt-4-turbo",     // Older but reliable
+    "gpt-3.5-turbo",   // Oldest fallback
+  ];
   return (
     modelPriority.find((model) =>
       availableModels.some((availableModel) =>
         availableModel.id.includes(model)
       )
-    ) || "gpt-3.5"
+    ) || "gpt-4o-mini"
   );
 }
 
-async function generateLabel({
+async function generateLabelWithOpenAI({
   apiKey,
   texts,
   maxLength,
@@ -224,8 +267,8 @@ async function generateLabel({
   maxLength: number;
 }): Promise<string> {
   const text = texts.join(", ");
-  const availableModels = await fetchAvailableModels(apiKey);
-  const model = chooseLabelingModel(availableModels);
+  const availableModels = await fetchAvailableOpenAIModels(apiKey);
+  const model = chooseOpenAILabelingModel(availableModels);
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
@@ -238,18 +281,19 @@ async function generateLabel({
       messages: [
         {
           role: "system",
-          content: `Your task is to create a concise and descriptive label for a cluster of similar sticky notes. Please follow these guidelines for an effective label:\n
-          The sticky notes have been organized through affinity mapping, which groups information based on natural relationships.\n
-          Your label should summarize the core idea of the clustered sticky notes in 3 words or fewer.\n
-          Avoid using unhelpful words like "category" or "cluster," numbers, quotation marks, periods, or any extraneous punctuation in your output.\n
-          \n
-          Here are some examples of effective labels:\n
-          If the sticky notes focus on improving user interfaces, an effective label could be "UI Enhancements"\n
-          If the sticky notes discuss various usability testing methods, a suitable label might be "Usability Testing"\n
-          If the sticky notes are related to design principles, an appropriate label could be "Design Principles"\n
-          If the sticky notes address accessibility requirements, a good label could be "Accessibility Standards"\n
-          If the sticky notes cover strategies for effective user onboarding, a fitting label might be "User Onboarding"\n
-          If the sticky notes explore ways to optimize app performance, an apt label could be "Performance Optimization"\n`,
+          content: `Your task is to create a concise and descriptive label for a cluster of similar sticky notes. Please follow these guidelines for an effective label:
+
+The sticky notes have been organized through affinity mapping, which groups information based on natural relationships.
+Your label should summarize the core idea of the clustered sticky notes in 3 words or fewer.
+Avoid using unhelpful words like "category" or "cluster," numbers, quotation marks, periods, or any extraneous punctuation in your output.
+
+Here are some examples of effective labels:
+If the sticky notes focus on improving user interfaces, an effective label could be "UI Enhancements"
+If the sticky notes discuss various usability testing methods, a suitable label might be "Usability Testing"
+If the sticky notes are related to design principles, an appropriate label could be "Design Principles"
+If the sticky notes address accessibility requirements, a good label could be "Accessibility Standards"
+If the sticky notes cover strategies for effective user onboarding, a fitting label might be "User Onboarding"
+If the sticky notes explore ways to optimize app performance, an apt label could be "Performance Optimization"`,
         },
         {
           role: "user",
@@ -274,18 +318,121 @@ async function generateLabel({
   }
 }
 
+// ============================================================================
+// Anthropic Claude API Functions
+// ============================================================================
+
+// Claude model priority for labeling tasks
+// Prefer smaller, faster models for simple labeling
+const CLAUDE_LABELING_MODELS = [
+  "claude-sonnet-4-5",         // Claude Sonnet 4.5 - fast and capable
+  "claude-sonnet-4-5-20250929", // Dated version
+  "claude-haiku-4-5",          // Claude Haiku 4.5 - fastest
+  "claude-haiku-4-5-20251001", // Dated version
+  "claude-opus-4-5",           // Claude Opus 4.5 - most capable (overkill for labels)
+  "claude-sonnet-4",           // Claude Sonnet 4
+  "claude-opus-4",             // Claude Opus 4
+  "claude-3-5-sonnet-20241022", // Fallback to 3.5
+];
+
+async function generateLabelWithAnthropic({
+  apiKey,
+  texts,
+  maxLength,
+}: {
+  apiKey: string;
+  texts: string[];
+  maxLength: number;
+}): Promise<string> {
+  const text = texts.join(", ");
+
+  // Use the first available model (in priority order)
+  const model = CLAUDE_LABELING_MODELS[0];
+
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model,
+      max_tokens: maxLength,
+      system: `Your task is to create a concise and descriptive label for a cluster of similar sticky notes. Please follow these guidelines for an effective label:
+
+The sticky notes have been organized through affinity mapping, which groups information based on natural relationships.
+Your label should summarize the core idea of the clustered sticky notes in 3 words or fewer.
+Avoid using unhelpful words like "category" or "cluster," numbers, quotation marks, periods, or any extraneous punctuation in your output.
+
+Here are some examples of effective labels:
+If the sticky notes focus on improving user interfaces, an effective label could be "UI Enhancements"
+If the sticky notes discuss various usability testing methods, a suitable label might be "Usability Testing"
+If the sticky notes are related to design principles, an appropriate label could be "Design Principles"
+If the sticky notes address accessibility requirements, a good label could be "Accessibility Standards"
+If the sticky notes cover strategies for effective user onboarding, a fitting label might be "User Onboarding"
+If the sticky notes explore ways to optimize app performance, an apt label could be "Performance Optimization"`,
+      messages: [
+        {
+          role: "user",
+          content: `Sticky notes collection: ${text}`,
+        },
+      ],
+    }),
+  });
+
+  const data = await response.json();
+
+  if (data.content && data.content.length > 0 && data.content[0].text) {
+    return data.content[0].text.trim();
+  } else if (data.error) {
+    throw new Error(data.error.message || "Anthropic API error");
+  } else {
+    return "Unknown";
+  }
+}
+
+// ============================================================================
+// Unified Label Generation
+// ============================================================================
+
+async function generateLabel({
+  apiKey,
+  texts,
+  maxLength,
+}: {
+  apiKey: string;
+  texts: string[];
+  maxLength: number;
+}): Promise<string> {
+  const provider = detectApiProvider(apiKey);
+
+  if (provider === "anthropic") {
+    return generateLabelWithAnthropic({ apiKey, texts, maxLength });
+  } else {
+    return generateLabelWithOpenAI({ apiKey, texts, maxLength });
+  }
+}
+
+// ============================================================================
+// Embedding Functions (OpenAI only)
+// ============================================================================
+
 function chooseEmbeddingModel(availableModels: Array<{ id: string }>): string {
+  // text-embedding-3 models (Jan 2024) are still the latest as of 2025
+  // text-embedding-3-small: Best value ($0.02/1M tokens), 1536 dimensions
+  // text-embedding-3-large: Highest quality ($0.13/1M tokens), 3072 dimensions
   const modelPriority = [
-    "text-embedding-ada-002",
-    "text-embedding-3-large",
     "text-embedding-3-small",
+    "text-embedding-3-large",
+    "text-embedding-ada-002",
   ];
   return (
     modelPriority.find((model) =>
       availableModels.some((availableModel) =>
         availableModel.id.includes(model)
       )
-    ) || "text-embedding-ada-002"
+    ) || "text-embedding-3-small"
   );
 }
 
@@ -296,7 +443,7 @@ async function getTextEmbeddings({
   apiKey: string;
   textLayers: TextualNode[];
 }): Promise<number[][]> {
-  const availableModels = await fetchAvailableModels(apiKey);
+  const availableModels = await fetchAvailableOpenAIModels(apiKey);
 
   const texts = textLayers
     .map((layer) => {
@@ -328,6 +475,10 @@ async function getTextEmbeddings({
     throw new Error(data.error.message);
   }
 }
+
+// ============================================================================
+// Clustering Functions
+// ============================================================================
 
 function clusterLayers({
   textLayers,

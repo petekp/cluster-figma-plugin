@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState, useRef } from "preact/hooks";
+import { useEffect, useState, useRef } from "preact/hooks";
 import { h } from "preact";
 import { UI_HEIGHT, UI_WIDTH } from "./constants";
-import { Button } from "@create-figma-plugin/ui";
 
 interface StickyNotesAnimationProps {
   isPlaying: boolean;
@@ -193,9 +192,6 @@ export default function StickyNotesAnimation({
           })`}
         />
       ))}
-      <Button style={{ marginTop: -20 }} onClick={() => setMoveToInitial(true)}>
-        Move to initial
-      </Button>
     </svg>
   );
 }
